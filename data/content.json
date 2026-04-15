@@ -1,0 +1,189 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Introduction to Charcoal",
+      "instructions": "Read the basics of what charcoal is and why grillers choose it. Click Next to continue.",
+      "media": "media/lesson1.jpg",
+      "sections": [
+        {
+          "heading": "Definition",
+          "body": "Charcoal is a carbon-rich material produced by slowly heating wood without oxygen. In grilling it delivers intense, even heat — far hotter than a gas flame can sustain over a full cook."
+        },
+        {
+          "heading": "Flavor",
+          "body": "As charcoal burns it releases aromatic compounds that bond to the surface of whatever you are cooking. That is where the unmistakable smoky flavor of charcoal-grilled food comes from."
+        },
+        {
+          "heading": "Why it matters",
+          "body": "Different charcoal types burn at different temperatures and for different lengths of time. Picking the right one is the first real decision a new griller makes."
+        }
+      ],
+      "interaction": null
+    },
+    {
+      "id": 2,
+      "title": "Types of Charcoal",
+      "instructions": "Tap any charcoal type to see its stats. Your pick is recorded so we can reference it later.",
+      "media": null,
+      "sections": [
+        {
+          "heading": "Four common options",
+          "body": "There is no single 'best' charcoal — the right choice depends on how long you need to cook and how hot you need to go."
+        }
+      ],
+      "interaction": {
+        "type": "choice",
+        "key": "favorite_type",
+        "prompt": "Which one fits the cook you have in mind?",
+        "options": [
+          {
+            "label": "Briquettes",
+            "heat_peak": "650–700°F",
+            "burn_duration": "3–4 hours",
+            "consistency": "95%",
+            "summary": "Uniform pillow-shaped lumps. Consistent, affordable, and easy to light. A great default."
+          },
+          {
+            "label": "Lump",
+            "heat_peak": "800–1000°F",
+            "burn_duration": "1–1.5 hours",
+            "consistency": "60–75%",
+            "summary": "Chunks of natural hardwood. Lights fast and burns very hot, but it burns out quickly."
+          },
+          {
+            "label": "Competition Briquettes",
+            "heat_peak": "700–800°F",
+            "burn_duration": "4–6 hours",
+            "consistency": "95–98%",
+            "summary": "Premium briquettes used by pitmasters. Long, steady burn at a high, consistent heat."
+          },
+          {
+            "label": "Bamboo",
+            "heat_peak": "600–700°F",
+            "burn_duration": "2–3 hours",
+            "consistency": "80–90%",
+            "summary": "Eco-friendly and sustainable. Produces a distinct aroma and a moderately long burn."
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "title": "Grilling Techniques — The Big Picture",
+      "instructions": "Skim the four techniques. The next page lets you compare them side by side.",
+      "media": "media/lesson3.jpg",
+      "sections": [
+        {
+          "heading": "Two-Zone",
+          "body": "Pile coals on one side of the grill and leave the other side empty. You get a hot zone for searing and a cool zone for finishing — the most forgiving setup for beginners."
+        },
+        {
+          "heading": "Snake Method",
+          "body": "Arrange unlit coals in a C-shape around the edge, light one end, and let the burn creep slowly around. Produces hours of low, steady heat — ideal for ribs and brisket."
+        },
+        {
+          "heading": "Direct Heat",
+          "body": "Coals spread evenly under the entire grate for maximum heat everywhere. Best for fast cooks like burgers and hot dogs."
+        },
+        {
+          "heading": "Charcoal + Wood Mix",
+          "body": "Drop chunks of hardwood on top of lit coals for an extra layer of smoke flavor. Great for smoked wings and pork shoulder."
+        }
+      ],
+      "interaction": null
+    },
+    {
+      "id": 4,
+      "title": "Charcoal Layouts in Practice",
+      "instructions": "Imagine the dish you want to cook, then tap the layout you would use.",
+      "media": null,
+      "sections": [
+        {
+          "heading": "Match the food to the layout",
+          "body": "Each layout plays to different strengths. Your selection helps us recommend a first cook at the end."
+        }
+      ],
+      "interaction": {
+        "type": "choice",
+        "key": "favorite_layout",
+        "prompt": "Which layout are you most curious to try?",
+        "options": [
+          {
+            "label": "Two-Zone",
+            "best_for": "Chicken thighs, bone-in cuts, thick steaks",
+            "summary": "Sear over the hot side, then slide to the cool side to finish without burning."
+          },
+          {
+            "label": "Snake Method",
+            "best_for": "Ribs, brisket, pork shoulder",
+            "summary": "Low, steady heat for hours. Set it up, close the lid, and let time do the work."
+          },
+          {
+            "label": "Direct Heat",
+            "best_for": "Burgers, hot dogs, quick veggies",
+            "summary": "Maximum heat everywhere. Fast cooks with a strong sear."
+          },
+          {
+            "label": "Charcoal + Wood Mix",
+            "best_for": "Smoked chicken wings, pork shoulder",
+            "summary": "Adds wood-smoke flavor on top of a charcoal base. Great when flavor matters more than speed."
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "title": "Safety & Disposal",
+      "instructions": "The last lesson. Read the safety checklist, then head to the quiz.",
+      "media": "media/lesson5.jpg",
+      "sections": [
+        {
+          "heading": "1. Make sure the coals are cold",
+          "body": "After cooking, close all vents and let the coals burn down. They can stay hot for up to 24 hours — never assume they are out just because the flames are gone."
+        },
+        {
+          "heading": "2. Extinguish with water, not just air",
+          "body": "Carefully pour water on the coals and stir until no steam rises and no glowing embers remain. This is the only reliable way to confirm the fire is fully out."
+        },
+        {
+          "heading": "3. Dispose in a metal container",
+          "body": "Used charcoal is not recyclable and not compostable. Once the ashes are completely cool, seal them in a metal container and place them in the regular trash."
+        }
+      ],
+      "interaction": null
+    }
+  ],
+  "quiz": [
+    {
+      "id": 1,
+      "question": "Which charcoal lasts the longest?",
+      "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "answer": 2
+    },
+    {
+      "id": 2,
+      "question": "Which charcoal burns the hottest?",
+      "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "answer": 1
+    },
+    {
+      "id": 3,
+      "question": "Which charcoal is the most consistent?",
+      "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "answer": 2
+    },
+    {
+      "id": 4,
+      "question": "You are cooking ribs for several hours and need steady, low heat. Which charcoal layout should you use?",
+      "options": ["Direct Heat", "Two-Zone", "Snake Method", "Charcoal + Wood Mix"],
+      "answer": 2
+    },
+    {
+      "id": 5,
+      "question": "In the U.S., which waste category should used charcoal be disposed in?",
+      "options": ["Blue bin (Recycling)", "Green bin (Organic/Compost)", "Black bin (General waste / Trash)", "Any of the above"],
+      "answer": 2
+    }
+  ]
+}
