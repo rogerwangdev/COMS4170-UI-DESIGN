@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Charcoal Grill Coach — Start{% endblock %}
+
+{% block content %}
+<div class="text-center mx-auto" style="max-width: 640px;">
+  <h1 class="display-4 mb-3">Your Guide to Grilling</h1>
+  <p class="lead text-muted mb-4">
+    A ~10-minute walkthrough of charcoal types, grilling layouts, and safe
+    cleanup. Then test yourself with a quick 5-question quiz.
+  </p>
+  <button id="start-btn" class="btn btn-success btn-lg px-5">
+    Start Learning
+  </button>
+  <p class="text-muted small mt-3">
+    Five short lessons, then five quiz questions.
+  </p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  $(function () {
+    $('#start-btn').on('click', function () {
+      $.ajax({
+        url: '/api/start',
+        method: 'POST',
+        contentType: 'application/json',
+        success: function (data) {
+          window.location.href = data.redirect;
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

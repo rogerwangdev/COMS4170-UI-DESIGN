@@ -1,0 +1,20 @@
+/* Minimal styling for HW 10. Visual design lives in HW 11. */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.choice-card {
+  white-space: normal;
+  transition: transform 0.08s ease-in-out;
+}
+
+.choice-card:hover {
+  transform: translateY(-1px);
+}
