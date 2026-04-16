@@ -1,0 +1,62 @@
+{#
+  TEAMMATE TODO — Result page.
+
+  Scoring is already done on the backend. This template receives:
+    correct     — int, number answered correctly
+    total       — int, total questions
+    breakdown   — list[dict]:
+        { id, question, chosen_index, chosen_label, correct_label, is_correct }
+
+  Feel free to redesign the summary view, add per-question feedback,
+  encourage a retry, link back to relevant lessons, etc.
+#}
+{% extends "base.html" %}
+
+{% block title %}Quiz Results{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+  <h1 class="display-5">Your Grilling Score</h1>
+  <p class="lead">
+    You got <strong>{{ correct }}</strong> of <strong>{{ total }}</strong> correct.
+  </p>
+  <div class="progress mx-auto" style="max-width: 420px; height: 12px;">
+    <div class="progress-bar bg-success"
+         style="width: {{ (correct / total * 100) if total else 0 | round(0) }}%"></div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <ul class="list-group list-group-flush">
+    {% for row in breakdown %}
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <span class="fw-semibold">Q{{ row.id }}.</span>
+          {% if row.is_correct %}
+            <span class="badge bg-success">Correct</span>
+          {% else %}
+            <span class="badge bg-danger">Incorrect</span>
+          {% endif %}
+        </div>
+        <div class="small mt-1">{{ row.question }}</div>
+        <div class="small text-muted mt-1">
+          Your answer:
+          <strong>{{ row.chosen_label or '(no answer)' }}</strong>
+          {% if not row.is_correct %}
+            &middot; Correct answer: <strong>{{ row.correct_label }}</strong>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="text-center mt-4">
+  <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
+    &larr; Back to Start
+  </a>
+  <a href="{{ url_for('learn', lesson_id=1) }}" class="btn btn-success">
+    Review Lessons
+  </a>
+</div>
+{% endblock %}
