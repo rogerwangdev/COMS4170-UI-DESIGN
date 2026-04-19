@@ -1,19 +1,4 @@
-{# TEAMMATE TODO — Quiz page. This is a working stub. You can click through
-every state and answers are already being recorded. Your job is polish +
-content. What this route already gives you: question — dict: { id, question,
-options (list[str]), answer (int) } q_id — 1..quiz_count quiz_count — total
-number of quiz questions prev_url — where "Back" should go next_url — where
-"Next" should go (last question goes to /result) next_label — pre-localised
-label for the Next button prior_answer — index (int) of the user's previous
-answer, or None Backend endpoints (already wired in app.py): POST
-/api/quiz/<q_id>
-  body: { "answer":
-  <int index>
-    } GET /api/state full user state (debug) GET /result auto-scores against
-    quiz[i].answer Where the quiz content lives: data/content.json → "quiz": [
-    {...}, ... ] Five slots are already filled — feel free to rewrite them, add
-    media, or extend the schema (just update this template accordingly). #} {%
-    extends "base.html" %} {% block title %}Quiz {{ q_id }} of {{ quiz_count
+{% extends "base.html" %} {% block title %}Quiz {{ q_id }} of {{ quiz_count
     }}{% endblock %} {% block progress %}
     <div class="container pt-3">
       <div class="d-flex justify-content-between small text-muted mb-1">
