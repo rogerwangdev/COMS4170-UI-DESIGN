@@ -116,7 +116,8 @@ def quiz(q_id):
     else:
         next_url = url_for("result")
         next_label = "See Results \u2192"
-    prior_answer = user_state["quiz_answers"].get(str(q_id), {}).get("answer")
+    # Don't show prior answers in UI (they're still recorded in user_state.json for history)
+    prior_answer = None
     return render_template(
         "quiz.html",
         question=question,
@@ -126,6 +127,7 @@ def quiz(q_id):
         next_url=next_url,
         next_label=next_label,
         prior_answer=prior_answer,
+        difficulty=question.get("difficulty", ""),
     )
 
 
@@ -146,11 +148,30 @@ def api_quiz(q_id):
 def result():
     correct = 0
     breakdown = []
+    weak_topics = {}  # Track topics where user got questions wrong
+    total_session_time = None
+    
+    # Calculate session duration
+    if user_state.get("start_time"):
+        start = datetime.fromisoformat(user_state["start_time"].replace("Z", "+00:00"))
+        end = datetime.utcnow().replace(tzinfo=None)
+        try:
+            start_naive = start.replace(tzinfo=None)
+            total_session_time = (end - start_naive).total_seconds()
+        except:
+            total_session_time = None
+    
     for q in CONTENT["quiz"]:
         chosen = user_state["quiz_answers"].get(str(q["id"]), {}).get("answer")
         is_correct = chosen is not None and int(chosen) == q["answer"]
+        
         if is_correct:
             correct += 1
+        else:
+            # Track weak topics
+            topic = q.get("topic", "unknown")
+            weak_topics[topic] = weak_topics.get(topic, 0) + 1
+        
         breakdown.append({
             "id": q["id"],
             "question": q["question"],
@@ -158,12 +179,55 @@ def result():
             "chosen_label": q["options"][int(chosen)] if chosen is not None else None,
             "correct_label": q["options"][q["answer"]],
             "is_correct": is_correct,
+            "explanation": q.get("explanations", [])[int(chosen)] if chosen is not None and chosen < len(q.get("explanations", [])) else None,
+            "key_takeaway": q.get("key_takeaway", ""),
+            "related_lesson_id": q.get("related_lesson_id"),
         })
+    
+    # Generate recommendations based on weak topics
+    recommendations = []
+    if weak_topics:
+        # Find lessons that match weak topics
+        for lesson in CONTENT["lessons"]:
+            if lesson.get("topic") in weak_topics:
+                recommendations.append({
+                    "lesson_id": lesson["id"],
+                    "lesson_title": lesson["title"],
+                    "reason": f"You had difficulty with {weak_topics[lesson.get('topic')]} question(s) about {lesson.get('topic', 'this topic').replace('-', ' ')}"
+                })
+    
+    # Calculate performance level
+    score_percentage = (correct / QUIZ_COUNT * 100) if QUIZ_COUNT > 0 else 0
+    if score_percentage >= 80:
+        performance_level = "Excellent"
+        performance_color = "success"
+    elif score_percentage >= 60:
+        performance_level = "Good"
+        performance_color = "info"
+    elif score_percentage >= 40:
+        performance_level = "Fair"
+        performance_color = "warning"
+    else:
+        performance_level = "Needs Review"
+        performance_color = "danger"
+    
+    # Calculate time per question
+    time_per_question = None
+    if total_session_time and QUIZ_COUNT:
+        time_per_question = round(total_session_time / QUIZ_COUNT, 1)
+    
     return render_template(
         "result.html",
         correct=correct,
         total=QUIZ_COUNT,
+        score_percentage=round(score_percentage, 1),
+        performance_level=performance_level,
+        performance_color=performance_color,
         breakdown=breakdown,
+        recommendations=recommendations,
+        total_session_time=total_session_time,
+        time_per_question=time_per_question,
+        lessons_count=LESSON_COUNT,
     )
 
 

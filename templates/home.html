@@ -1,34 +1,63 @@
-{% extends "base.html" %}
-
-{% block title %}Charcoal Grill Coach — Start{% endblock %}
-
-{% block content %}
-<div class="text-center mx-auto" style="max-width: 640px;">
-  <h1 class="display-4 mb-3">Your Guide to Grilling</h1>
-  <p class="lead text-muted mb-4">
-    A ~10-minute walkthrough of charcoal types, grilling layouts, and safe
-    cleanup. Then test yourself with a quick 5-question quiz.
+{% extends "base.html" %} {% block title %}Charcoal Grill Coach — Start{%
+endblock %} {% block content %}
+<div class="text-center mx-auto" style="max-width: 640px">
+  <h1 class="display-4 mb-3">🔥 Charcoal Grill Coach</h1>
+  <p class="lead text-muted mb-5">
+    Master the basics of charcoal grilling in just 10 minutes. Learn about
+    charcoal types, grilling techniques, and safety best practices.
   </p>
-  <button id="start-btn" class="btn btn-success btn-lg px-5">
-    Start Learning
+
+  <button id="start-btn" class="btn btn-success btn-lg px-5 mb-4">
+    Start Learning →
   </button>
-  <p class="text-muted small mt-3">
-    Five short lessons, then five quiz questions.
+
+  <div class="row g-3 mb-4">
+    <div class="col-sm-6">
+      <div class="card border-0 bg-light">
+        <div class="card-body">
+          <div class="h5 fw-bold">📚 5 Lessons</div>
+          <div class="small text-muted">~11 minutes total</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card border-0 bg-light">
+        <div class="card-body">
+          <div class="h5 fw-bold">✓ 5 Questions</div>
+          <div class="small text-muted">Quick quiz</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-muted small">
+    No account needed. Your progress is saved automatically.
   </p>
 </div>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script>
   $(function () {
-    $('#start-btn').on('click', function () {
+    $("#start-btn").on("click", function () {
+      var $btn = $(this);
+      var originalText = $btn.text();
+
+      $btn
+        .prop("disabled", true)
+        .html(
+          '<span class="spinner-border spinner-border-sm me-2"></span>Starting…',
+        );
+
       $.ajax({
-        url: '/api/start',
-        method: 'POST',
-        contentType: 'application/json',
+        url: "/api/start",
+        method: "POST",
+        contentType: "application/json",
         success: function (data) {
           window.location.href = data.redirect;
-        }
+        },
+        error: function () {
+          $btn.prop("disabled", false).text(originalText);
+          alert("Error starting. Please try again.");
+        },
       });
     });
   });
