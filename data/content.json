@@ -5,6 +5,14 @@
       "title": "Introduction to Charcoal",
       "instructions": "Read the basics of what charcoal is and why grillers choose it. Click Next to continue.",
       "media": "media/lesson1.jpg",
+      "topic": "charcoal-basics",
+      "difficulty": "beginner",
+      "estimated_time": "2 min",
+      "learning_objectives": [
+        "Understand how charcoal is produced and why it's used in grilling",
+        "Learn how charcoal creates the distinctive smoky flavor",
+        "Recognize that different charcoal types have different properties"
+      ],
       "sections": [
         {
           "heading": "Definition",
@@ -26,6 +34,14 @@
       "title": "Types of Charcoal",
       "instructions": "Tap any charcoal type to see its stats. Your pick is recorded so we can reference it later.",
       "media": null,
+      "topic": "charcoal-types",
+      "difficulty": "beginner",
+      "estimated_time": "3 min",
+      "learning_objectives": [
+        "Identify four common types of charcoal used in grilling",
+        "Compare charcoal types by heat output, burn duration, and consistency",
+        "Choose the right charcoal type based on cooking needs"
+      ],
       "sections": [
         {
           "heading": "Four common options",
@@ -73,6 +89,14 @@
       "title": "Grilling Techniques — The Big Picture",
       "instructions": "Skim the four techniques. The next page lets you compare them side by side.",
       "media": "media/lesson3.jpg",
+      "topic": "grilling-techniques",
+      "difficulty": "intermediate",
+      "estimated_time": "2 min",
+      "learning_objectives": [
+        "Name four fundamental charcoal grilling techniques",
+        "Understand the heat characteristics of each technique",
+        "Identify which technique suits different cooking styles"
+      ],
       "sections": [
         {
           "heading": "Two-Zone",
@@ -98,6 +122,14 @@
       "title": "Charcoal Layouts in Practice",
       "instructions": "Imagine the dish you want to cook, then tap the layout you would use.",
       "media": null,
+      "topic": "grilling-techniques",
+      "difficulty": "intermediate",
+      "estimated_time": "2 min",
+      "learning_objectives": [
+        "Apply grilling techniques to real cooking scenarios",
+        "Match cooking methods to desired food outcomes",
+        "Plan layout selection based on cook duration and heat needs"
+      ],
       "sections": [
         {
           "heading": "Match the food to the layout",
@@ -137,6 +169,14 @@
       "title": "Safety & Disposal",
       "instructions": "The last lesson. Read the safety checklist, then head to the quiz.",
       "media": "media/lesson5.jpg",
+      "topic": "safety",
+      "difficulty": "beginner",
+      "estimated_time": "2 min",
+      "learning_objectives": [
+        "Understand proper charcoal cooling and extinguishing procedures",
+        "Learn safe disposal methods for used charcoal",
+        "Recognize the hazards of improperly cooled charcoal"
+      ],
       "sections": [
         {
           "heading": "1. Make sure the coals are cold",
@@ -158,32 +198,92 @@
     {
       "id": 1,
       "question": "Which charcoal lasts the longest?",
+      "topic": "charcoal-types",
+      "difficulty": "beginner",
+      "related_lesson_id": 2,
       "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
-      "answer": 2
+      "answer": 2,
+      "explanations": [
+        "Briquettes burn for 3–4 hours, which is long, but not the longest.",
+        "Lump charcoal burns out quickly in 1–1.5 hours.",
+        "Correct! Competition Briquettes are premium charcoal designed for long, steady burns of 4–6 hours.",
+        "Bamboo burns for 2–3 hours, moderate duration."
+      ],
+      "key_takeaway": "Competition Briquettes are engineered for marathon cooks."
     },
     {
       "id": 2,
       "question": "Which charcoal burns the hottest?",
+      "topic": "charcoal-types",
+      "difficulty": "beginner",
+      "related_lesson_id": 2,
       "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
-      "answer": 1
+      "answer": 1,
+      "explanations": [
+        "Briquettes peak at 650–700°F.",
+        "Correct! Lump charcoal reaches 800–1000°F, the hottest of all types.",
+        "Competition Briquettes peak at 700–800°F, high but not the hottest.",
+        "Bamboo reaches 600–700°F."
+      ],
+      "key_takeaway": "Lump charcoal is ideal for high-heat searing."
     },
     {
       "id": 3,
       "question": "Which charcoal is the most consistent?",
+      "topic": "charcoal-types",
+      "difficulty": "beginner",
+      "related_lesson_id": 2,
       "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
-      "answer": 2
+      "answer": 2,
+      "explanations": [
+        "Briquettes are 95% consistent, very reliable.",
+        "Lump is only 60–75% consistent because it's chunks of natural wood.",
+        "Correct! Competition Briquettes are 95–98% consistent, the most reliable for precise temperature control.",
+        "Bamboo is 80–90% consistent."
+      ],
+      "key_takeaway": "Competition Briquettes offer the best predictability."
     },
     {
       "id": 4,
       "question": "You are cooking ribs for several hours and need steady, low heat. Which charcoal layout should you use?",
-      "options": ["Direct Heat", "Two-Zone", "Snake Method", "Charcoal + Wood Mix"],
-      "answer": 2
+      "topic": "grilling-techniques",
+      "difficulty": "intermediate",
+      "related_lesson_id": 3,
+      "options": [
+        "Direct Heat",
+        "Two-Zone",
+        "Snake Method",
+        "Charcoal + Wood Mix"
+      ],
+      "answer": 2,
+      "explanations": [
+        "Direct Heat spreads coals everywhere for maximum heat—too hot for a long, slow cook.",
+        "Two-Zone is great for searing and finishing, but doesn't provide the steady, low heat ribs need.",
+        "Correct! The Snake Method creates a slow burn that creeps around the grill, perfect for hours of low, steady heat.",
+        "Charcoal + Wood Mix adds flavor but isn't the best for sustained low heat over many hours."
+      ],
+      "key_takeaway": "The Snake Method is the go-to for low-and-slow cooking like ribs and brisket."
     },
     {
       "id": 5,
       "question": "In the U.S., which waste category should used charcoal be disposed in?",
-      "options": ["Blue bin (Recycling)", "Green bin (Organic/Compost)", "Black bin (General waste / Trash)", "Any of the above"],
-      "answer": 2
+      "topic": "safety",
+      "difficulty": "beginner",
+      "related_lesson_id": 5,
+      "options": [
+        "Blue bin (Recycling)",
+        "Green bin (Organic/Compost)",
+        "Black bin (General waste / Trash)",
+        "Any of the above"
+      ],
+      "answer": 2,
+      "explanations": [
+        "Charcoal is not recyclable.",
+        "Charcoal is not compostable.",
+        "Correct! Used charcoal goes in the general trash once it is completely cool.",
+        "Charcoal only goes in the trash—not the other categories."
+      ],
+      "key_takeaway": "Cool, used charcoal is regular waste, not a special material."
     }
   ]
 }
