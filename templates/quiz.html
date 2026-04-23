@@ -1,139 +1,113 @@
-{% extends "base.html" %} {% block title %}Quiz {{ q_id }} of {{ quiz_count
-    }}{% endblock %} {% block progress %}
-    <div class="container pt-3">
-      <div class="d-flex justify-content-between small text-muted mb-1">
-        <span>Question {{ q_id }} of {{ quiz_count }}</span>
-        <span>Quiz</span>
-      </div>
-      <div class="progress" style="height: 6px">
-        <div
-          class="progress-bar bg-warning"
-          style="width: {{ (q_id / quiz_count * 100) | round(0) }}%"
-        ></div>
-      </div>
+{% extends "base.html" %}
+{% block title %}Quiz {{ q_id }} of {{ quiz_count }} &mdash; Charcoal Grill Coach{% endblock %}
+
+{% block progress %}
+<div class="container pt-3">
+  <div class="d-flex justify-content-between small mono mb-2"
+       style="color: var(--color-mid); letter-spacing: 0.1em; text-transform: uppercase;">
+    <span>Question {{ q_id }} of {{ quiz_count }}</span>
+    <span>Quiz</span>
+  </div>
+  <div class="progress" style="height: 4px;">
+    <div class="progress-bar"
+         style="width: {{ (q_id / quiz_count * 100) | round(0) }}%;"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<section class="container-narrow py-3 py-md-4 fade-up fade-up-1">
+  <article class="card p-4 p-md-5">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <div class="eyebrow">{{ question.topic | replace('-', ' ') }}</div>
+      {% if difficulty %}
+      <span class="badge">{{ difficulty }}</span>
+      {% endif %}
     </div>
-    {% endblock %} {% block content %}
-    <article class="card shadow-sm">
-      <div class="card-body p-4 p-md-5">
-        <div class="d-flex justify-content-between align-items-start mb-4">
-          <div>
-            <h1 class="h4 mb-1">{{ question.question }}</h1>
-            {% if difficulty %}
-            <span class="badge bg-light text-dark small"
-              >{{ difficulty | capitalize }}</span
-            >
-            {% endif %}
-          </div>
-        </div>
 
-        <form
-          id="quiz-form"
-          data-q-id="{{ q_id }}"
-          data-options="{{ question.options | tojson | escape }}"
-        >
-          {% for opt in question.options %}
-          <div class="form-check mb-3">
-            {% if prior_answer is not none and prior_answer == loop.index0 %}
-            <input
-              class="form-check-input"
-              type="radio"
-              name="answer"
-              id="opt-{{ loop.index0 }}"
-              value="{{ loop.index0 }}"
-              checked
-            />
-            {% else %}
-            <input
-              class="form-check-input"
-              type="radio"
-              name="answer"
-              id="opt-{{ loop.index0 }}"
-              value="{{ loop.index0 }}"
-            />
-            {% endif %}
-            <label class="form-check-label" for="opt-{{ loop.index0 }}">
-              {{ opt }}
-            </label>
-          </div>
-          {% endfor %}
-        </form>
+    <h1 class="display-title mb-4"
+        style="font-size: clamp(1.5rem, 3vw, 1.9rem); line-height: 1.25;">
+      {{ question.question }}
+    </h1>
 
-        <div id="quiz-feedback" class="small text-muted mt-3"></div>
-        <div
-          id="quiz-explanation"
-          class="alert alert-info small mt-3"
-          style="display: none"
-        ></div>
 
-        <div class="d-flex justify-content-between mt-5">
-          <a href="{{ prev_url }}" class="btn btn-outline-secondary"
-            >&larr; Back</a
-          >
-          <a
-            href="{{ next_url }}"
-            id="next-btn"
-            class="btn btn-warning text-dark disabled"
-            aria-disabled="true"
-          >
-            {{ next_label }}
-          </a>
-        </div>
+    <form id="quiz-form" data-q-id="{{ q_id }}" class="mb-2">
+      {% for opt in question.options %}
+      <div class="form-check fade-up fade-up-{{ loop.index + 1 }}">
+        <input class="form-check-input" type="radio"
+               name="answer" id="opt-{{ loop.index0 }}"
+               value="{{ loop.index0 }}"
+               {% if prior_answer is not none and prior_answer == loop.index0 %}checked{% endif %}>
+        <label class="form-check-label" for="opt-{{ loop.index0 }}">
+          <span class="mono"
+                style="color: var(--color-mid); font-size: 12px;
+                       min-width: 2ch; font-weight: 600;">
+            {{ ['A','B','C','D'][loop.index0] }}
+          </span>
+          <span>{{ opt }}</span>
+        </label>
       </div>
-    </article>
-    <script type="application/json" id="question-data">
-      {{ question | tojson }}
-    </script>
-    {% endblock %} {% block extra_js %}
-    <script>
-      $(function () {
-        var $form = $("#quiz-form");
-        var $next = $("#next-btn");
-        var $feedback = $("#quiz-feedback");
-        var $explanation = $("#quiz-explanation");
-        var qId = $form.data("q-id");
+      {% endfor %}
+    </form>
 
-        // Parse question data with explanations
-        var questionData = {};
-        try {
-          questionData = JSON.parse($("#question-data").text());
-        } catch (e) {
-          console.log("Could not parse question data");
-        }
+    <div id="quiz-feedback" class="small mono mt-3"
+         style="min-height: 1.4em; color: var(--color-mid);
+                letter-spacing: 0.08em; text-transform: uppercase;"></div>
 
-        function enableNext() {
-          $next.removeClass("disabled").removeAttr("aria-disabled");
-        }
+    <hr class="rule">
 
-        if ($form.find('input[name="answer"]:checked').length) {
+    <div class="d-flex justify-content-between align-items-center">
+      <a href="{{ prev_url }}" class="btn btn-outline-secondary btn-sm">
+        &larr; Back
+      </a>
+      <a href="{{ next_url }}" id="next-btn"
+         class="btn btn-primary disabled" aria-disabled="true">
+        {{ next_label }}
+      </a>
+    </div>
+  </article>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  $(function () {
+    var $form = $("#quiz-form");
+    var $next = $("#next-btn");
+    var $feedback = $("#quiz-feedback");
+    var qId = $form.data("q-id");
+
+    function enableNext() {
+      $next.removeClass("disabled").removeAttr("aria-disabled");
+    }
+
+    if ($form.find('input[name="answer"]:checked').length) {
+      enableNext();
+      $feedback.text("Answer saved");
+    }
+
+    $form.on("change", 'input[name="answer"]', function () {
+      var answer = parseInt($(this).val(), 10);
+      $feedback.text("Saving...").addClass("saving");
+
+      $.ajax({
+        url: "/api/quiz/" + qId,
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ answer: answer }),
+        success: function () {
+          $feedback.removeClass("saving").text("Answer saved");
           enableNext();
-        }
-
-        $form.on("change", 'input[name="answer"]', function () {
-          var answer = parseInt($(this).val(), 10);
-          $feedback
-            .text("Saving…")
-            .removeClass("text-danger")
-            .addClass("text-muted");
-
-          $.ajax({
-            url: "/api/quiz/" + qId,
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ answer: answer }),
-            success: function () {
-              $feedback.text("Saved.");
-              enableNext();
-            },
-            error: function () {
-              $feedback
-                .removeClass("text-muted")
-                .addClass("text-danger")
-                .text("Could not save your answer.");
-            },
-          });
-        });
+        },
+        error: function () {
+          $feedback.removeClass("saving")
+            .text("Could not save your answer")
+            .css("color", "var(--color-red)");
+        },
       });
-    </script>
-    {% endblock %}
-  </int></q_id
->
+    });
+  });
+</script>
+{% endblock %}

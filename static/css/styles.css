@@ -1,193 +1,508 @@
-/* Enhanced styling for HW 10 with UI polish and animations */
+/* ===========================================================================
+   Charcoal Grill Coach — Design System
+   Cobalt on cream, IBM Plex Serif + Sans.
+   Concordant typography, restrained accent (~10% pop on primary CTAs only).
+   =========================================================================== */
+
+:root {
+  /* Palette */
+  --color-base:         #F5ECD8;   /* warm cream, page surface */
+  --color-surface:      #FFFFFF;   /* card surfaces */
+  --color-surface-tint: #FBF6E9;   /* subtle card variant */
+  --color-accent:       #1D49B0;   /* cobalt, primary brand */
+  --color-accent-dark:  #0F2F82;   /* pressed / hover */
+  --color-accent-tint:  rgba(29, 73, 176, 0.08);
+  --color-dark:         #0F1A2E;   /* near-black navy, body text */
+  --color-dark-soft:    #25304A;   /* secondary text */
+  --color-mid:          #6B7780;   /* captions */
+  --color-light:        #D1C8B6;   /* warm stone, chrome + dividers */
+  --color-rule:         #DDD2B8;   /* soft cream divider */
+  --color-rule-soft:    #E8DFC9;   /* even softer divider */
+  --color-red:          #C8302A;   /* semantic wrong-answer only */
+  --color-red-tint:     rgba(200, 48, 42, 0.08);
+
+  /* Typography */
+  --font-display: 'IBM Plex Serif', 'Georgia', 'Times New Roman', serif;
+  --font-body:    'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Spacing (8pt rhythm) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+
+  /* Radii */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-pill: 999px;
+
+  /* Shadows (cool-tinted for depth on cream) */
+  --shadow-sm: 0 1px 2px rgba(15, 26, 46, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 26, 46, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 26, 46, 0.12);
+
+  /* Motion */
+  --ease:   cubic-bezier(0.2, 0.6, 0.2, 1);
+  --trans:  180ms var(--ease);
+}
+
+/* --- Base ----------------------------------------------------------------- */
+
+* { box-sizing: border-box; }
 
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-dark);
+  background-color: var(--color-base);
+  font-feature-settings: 'ss01', 'ss02';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-main {
-  flex: 1;
+main { flex: 1; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-dark);
+  letter-spacing: -0.01em;
+  font-weight: 600;
 }
 
-/* Choice Cards Animation */
-.choice-card {
-  white-space: normal;
-  transition: all 0.2s ease-in-out;
-  border: 2px solid transparent;
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--trans);
+}
+a:hover { color: var(--color-accent-dark); }
+
+code, kbd, pre { font-family: var(--font-mono); }
+
+/* --- Navbar --------------------------------------------------------------- */
+
+.navbar.navbar-dark {
+  background-color: var(--color-surface) !important;
+  border-bottom: 1px solid var(--color-rule);
+  padding: var(--space-3) 0;
 }
 
-.choice-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.navbar .navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-dark) !important;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
-.choice-card.btn-success {
-  border-color: #198754;
-  box-shadow: 0 2px 8px rgba(25, 135, 84, 0.2);
+.navbar .navbar-brand::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent);
+  border-radius: 2px;
 }
 
-/* Card Hover Effects */
+.navbar .small {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-mid) !important;
+}
+
+/* --- Footer --------------------------------------------------------------- */
+
+footer {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-mid) !important;
+  padding: var(--space-5) 0 !important;
+  border-top: 1px solid var(--color-rule);
+  background-color: transparent;
+}
+
+/* --- Cards ---------------------------------------------------------------- */
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: none;
+  transition: box-shadow var(--trans), transform var(--trans);
+}
+
+.card.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
 .card-hover {
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
 }
-
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-light);
 }
 
-/* Form Elements */
-.form-check-input {
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
+/* --- Buttons -------------------------------------------------------------- */
 
-.form-check-input:checked {
-  background-color: #ffc107;
-  border-color: #ffc107;
-  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-}
-
-.form-check-label {
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.2s ease-in-out;
-}
-
-/* Feedback & Explanation Messages */
-#quiz-feedback {
-  min-height: 1.5em;
-  animation: slideIn 0.3s ease-in-out;
-}
-
-#quiz-explanation {
-  animation: slideIn 0.4s ease-in-out;
-  border-left: 4px solid currentColor;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Progress bar enhancement */
-.progress {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-/* Learning Objectives */
-.alert {
-  border-radius: 8px;
-  animation: slideIn 0.3s ease-in-out;
-}
-
-/* Button States & Transitions */
 .btn {
-  transition: all 0.2s ease-in-out;
+  font-family: var(--font-body);
   font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0;
+  border-radius: var(--radius-pill);
+  padding: 10px 24px;
+  border: 1.5px solid transparent;
+  transition: background-color var(--trans), color var(--trans),
+              border-color var(--trans), transform var(--trans),
+              box-shadow var(--trans);
+  cursor: pointer;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-accent-tint);
+  outline-offset: 2px;
+}
+
+.btn-lg {
+  padding: 14px 32px;
+  font-size: 16px;
+}
+
+.btn-sm {
+  padding: 6px 16px;
+  font-size: 13px;
+}
+
+/* Primary: cobalt fill, white text. The only saturated button. */
+.btn-primary,
+.btn-success,
+.btn-warning {
+  background-color: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+.btn-primary:hover:not(:disabled):not(.disabled),
+.btn-success:hover:not(:disabled):not(.disabled),
+.btn-warning:hover:not(:disabled):not(.disabled) {
+  background-color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Secondary: neutral dark outline. Keeps accent reserved for primary. */
+.btn-outline-secondary,
+.btn-outline-primary,
+.btn-outline-success {
+  background-color: transparent;
+  color: var(--color-dark);
+  border-color: var(--color-dark);
+}
+.btn-outline-secondary:hover:not(:disabled):not(.disabled),
+.btn-outline-primary:hover:not(:disabled):not(.disabled),
+.btn-outline-success:hover:not(:disabled):not(.disabled) {
+  background-color: var(--color-dark);
+  color: #fff;
+  border-color: var(--color-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .btn:disabled,
 .btn.disabled {
-  opacity: 0.6;
+  opacity: 0.45;
   cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-.btn-success {
-  background-color: #198754;
-  border-color: #198754;
-}
+/* --- Choice cards (lesson page - Shenghang scope, baseline only) --------- */
 
-.btn-success:hover:not(:disabled) {
-  background-color: #157347;
-  border-color: #157347;
+.choice-card.btn {
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  text-align: left !important;
+  border: 1.5px solid var(--color-rule);
+  color: var(--color-dark);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+}
+.choice-card.btn:hover:not(:disabled):not(.disabled) {
+  border-color: var(--color-mid);
+  background: var(--color-surface);
+  color: var(--color-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+  box-shadow: var(--shadow-sm);
+}
+.choice-card.btn-success {
+  border-color: var(--color-accent);
+  background: var(--color-accent-tint);
+  color: var(--color-dark);
 }
 
-.btn-warning {
-  background-color: #ffc107;
-  color: #000;
-  border-color: #ffc107;
+/* --- Forms (quiz answers) ------------------------------------------------- */
+
+.form-check {
+  padding: 0;
+  margin-bottom: var(--space-3);
 }
 
-.btn-warning:hover:not(:disabled) {
-  background-color: #ffb300;
-  border-color: #ffb300;
+.form-check .form-check-input {
+  display: none;
+}
+
+.form-check .form-check-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  color: var(--color-dark);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color var(--trans), background-color var(--trans),
+              transform var(--trans);
+  width: 100%;
+}
+
+.form-check .form-check-label::before {
+  content: "";
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-light);
+  border-radius: 50%;
+  background-color: transparent;
+  transition: border-color var(--trans), background-color var(--trans),
+              box-shadow var(--trans);
+}
+
+.form-check .form-check-label:hover {
+  border-color: var(--color-mid);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Performance color indicators */
-.text-success {
-  color: #198754 !important;
-}
-.text-info {
-  color: #0dcaf0 !important;
-}
-.text-warning {
-  color: #ffc107 !important;
-}
-.text-danger {
-  color: #dc3545 !important;
-}
-
-/* Badge polish */
-.badge {
+.form-check .form-check-input:checked + .form-check-label {
+  border-color: var(--color-accent);
+  background: var(--color-accent-tint);
   font-weight: 600;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  animation: slideIn 0.3s ease-in-out;
 }
 
-/* Card styling */
-.card {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
+.form-check .form-check-input:checked + .form-check-label::before {
+  border-color: var(--color-accent);
+  background: radial-gradient(
+    circle at center,
+    var(--color-accent) 0 5px,
+    transparent 6px
+  );
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
+/* --- Progress bar --------------------------------------------------------- */
+
+.progress {
+  background-color: var(--color-light);
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
-.card.shadow-sm {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+.progress-bar,
+.progress-bar.bg-warning,
+.progress-bar.bg-success {
+  background-color: var(--color-accent) !important;
+  transition: width var(--trans);
 }
 
-/* Responsive improvements */
-@media (max-width: 768px) {
-  .choice-card {
-    padding: 1rem !important;
-  }
+/* --- Kicker / eyebrow ----------------------------------------------------- */
 
-  .display-4 {
-    font-size: 2.5rem;
-  }
-
-  .display-6 {
-    font-size: 1.5rem;
-  }
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  display: inline-block;
+  margin-bottom: var(--space-2);
 }
 
-/* Loader & Saving state animations */
+/* --- Badge ---------------------------------------------------------------- */
+
+.badge {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-light) !important;
+  color: var(--color-dark) !important;
+}
+
+/* --- Alerts --------------------------------------------------------------- */
+
+.alert {
+  border-radius: var(--radius-md);
+  border: none;
+  padding: var(--space-4) var(--space-5);
+}
+
+.alert-info {
+  background-color: var(--color-accent-tint);
+  color: var(--color-accent-dark);
+  border-left: 3px solid var(--color-accent);
+}
+
+/* --- Utility colors (override Bootstrap semantic names) ------------------- */
+
+.text-success { color: var(--color-dark) !important; }
+.text-danger  { color: var(--color-red) !important; }
+.text-warning,
+.text-info    { color: var(--color-accent) !important; }
+.text-muted   { color: var(--color-mid) !important; }
+.bg-light     { background-color: var(--color-base) !important; }
+
+/* --- Typography utilities ------------------------------------------------- */
+
+.display-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-dark);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.mono { font-family: var(--font-mono); }
+.serif { font-family: var(--font-display); }
+
+.rule {
+  height: 1px;
+  background-color: var(--color-rule);
+  border: 0;
+  margin: var(--space-5) 0;
+}
+
+.gilded-line {
+  width: 44px;
+  height: 3px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+/* --- Motion: staggered fade-up on entrance -------------------------------- */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 520ms var(--ease) both;
+}
+.fade-up-1 { animation-delay: 40ms; }
+.fade-up-2 { animation-delay: 120ms; }
+.fade-up-3 { animation-delay: 200ms; }
+.fade-up-4 { animation-delay: 280ms; }
+.fade-up-5 { animation-delay: 360ms; }
+
+@keyframes pop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pop-in {
+  animation: pop 600ms var(--ease) both;
+}
+
 @keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+.saving { animation: pulse 1.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-.saving {
-  animation: pulse 1.5s ease-in-out infinite;
+/* Pin animations to final state (screenshot tool / `?static=1` URL) */
+html.no-anim .fade-up,
+html.no-anim .pop-in,
+html.no-anim .saving {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* --- Layout helpers ------------------------------------------------------- */
+
+.container,
+.container-lg,
+.container-md {
+  max-width: 1140px;
+}
+
+.container-narrow {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* --- Bootstrap patches ---------------------------------------------------- */
+
+.form-check-input:focus {
+  box-shadow: none;
+  border-color: inherit;
+}
+
+/* Prevent Bootstrap background from overriding the cream page */
+body.bg-light { background-color: var(--color-base) !important; }
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .display-title { font-size: 2rem; }
+  .btn-lg { padding: 12px 24px; font-size: 15px; }
+  .form-check .form-check-label {
+    padding: var(--space-3) var(--space-4);
+    font-size: 14px;
+  }
 }

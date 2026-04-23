@@ -1,52 +1,75 @@
-{% extends "base.html" %} {% block title %}Charcoal Grill Coach — Start{%
-endblock %} {% block content %}
-<div class="text-center mx-auto" style="max-width: 640px">
-  <h1 class="display-4 mb-3">🔥 Charcoal Grill Coach</h1>
-  <p class="lead text-muted mb-5">
-    Master the basics of charcoal grilling in just 10 minutes. Learn about
-    charcoal types, grilling techniques, and safety best practices.
-  </p>
+{% extends "base.html" %}
+{% block title %}Charcoal Grill Coach{% endblock %}
 
-  <button id="start-btn" class="btn btn-success btn-lg px-5 mb-4">
-    Start Learning →
-  </button>
-
-  <div class="row g-3 mb-4">
-    <div class="col-sm-6">
-      <div class="card border-0 bg-light">
-        <div class="card-body">
-          <div class="h5 fw-bold">📚 5 Lessons</div>
-          <div class="small text-muted">~11 minutes total</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="card border-0 bg-light">
-        <div class="card-body">
-          <div class="h5 fw-bold">✓ 5 Questions</div>
-          <div class="small text-muted">Quick quiz</div>
-        </div>
-      </div>
+{% block content %}
+<section class="row g-5 align-items-center py-3 py-md-5">
+  <div class="col-lg-7 fade-up fade-up-1">
+    <div class="eyebrow mb-3">Learn to grill in 10 minutes</div>
+    <h1 class="display-title mb-4" style="font-size: clamp(2.4rem, 4.6vw, 3.4rem);">
+      Charcoal<br>Grill Coach
+    </h1>
+    <hr class="gilded-line">
+    <p class="lead mb-4" style="max-width: 38ch; color: var(--color-dark-soft); font-size: 1.1rem;">
+      A short, hands-on tutorial on picking charcoal, laying a fire,
+      and cooking safely. Then a quick quiz to lock it in.
+    </p>
+    <div class="d-flex gap-3 flex-wrap">
+      <button id="start-btn" class="btn btn-primary btn-lg">
+        Start Learning &rarr;
+      </button>
+      <a href="{{ url_for('quiz', q_id=1) }}" class="btn btn-outline-secondary btn-lg">
+        Skip to Quiz
+      </a>
     </div>
   </div>
 
-  <p class="text-muted small">
-    No account needed. Your progress is saved automatically.
-  </p>
-</div>
-{% endblock %} {% block extra_js %}
+  <div class="col-lg-5 fade-up fade-up-2">
+    <div class="card p-4 p-md-5">
+      <div class="eyebrow mb-3">What you'll learn</div>
+      <ol class="list-unstyled mb-0" style="counter-reset: step;">
+        <li class="d-flex gap-3 mb-4">
+          <span class="mono" style="color: var(--color-accent); font-weight: 600; font-size: 13px; min-width: 2ch;">01</span>
+          <div>
+            <div class="serif" style="font-weight: 600; font-size: 18px;">Pick</div>
+            <div class="small text-muted">Choose the right charcoal for the cook.</div>
+          </div>
+        </li>
+        <li class="d-flex gap-3 mb-4">
+          <span class="mono" style="color: var(--color-accent); font-weight: 600; font-size: 13px; min-width: 2ch;">02</span>
+          <div>
+            <div class="serif" style="font-weight: 600; font-size: 18px;">Lay</div>
+            <div class="small text-muted">Two-zone, snake, direct: know when to use which.</div>
+          </div>
+        </li>
+        <li class="d-flex gap-3 mb-4">
+          <span class="mono" style="color: var(--color-accent); font-weight: 600; font-size: 13px; min-width: 2ch;">03</span>
+          <div>
+            <div class="serif" style="font-weight: 600; font-size: 18px;">Cook &amp; Clean</div>
+            <div class="small text-muted">Grill safely and dispose of coals the right way.</div>
+          </div>
+        </li>
+        <li class="d-flex gap-3">
+          <span class="mono" style="color: var(--color-accent); font-weight: 600; font-size: 13px; min-width: 2ch;">04</span>
+          <div>
+            <div class="serif" style="font-weight: 600; font-size: 18px;">Quiz</div>
+            <div class="small text-muted">5 questions, about 3 minutes.</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
 <script>
   $(function () {
     $("#start-btn").on("click", function () {
       var $btn = $(this);
-      var originalText = $btn.text();
-
-      $btn
-        .prop("disabled", true)
-        .html(
-          '<span class="spinner-border spinner-border-sm me-2"></span>Starting…',
-        );
-
+      var originalHtml = $btn.html();
+      $btn.prop("disabled", true).html(
+        '<span class="spinner-border spinner-border-sm me-2"></span>Starting...'
+      );
       $.ajax({
         url: "/api/start",
         method: "POST",
@@ -55,7 +78,7 @@ endblock %} {% block content %}
           window.location.href = data.redirect;
         },
         error: function () {
-          $btn.prop("disabled", false).text(originalText);
+          $btn.prop("disabled", false).html(originalHtml);
           alert("Error starting. Please try again.");
         },
       });
