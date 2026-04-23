@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}{{ charcoal.label }} — Types of Charcoal{% endblock %}
+
+{% block progress %}
+<div class="container pt-3">
+  <div class="d-flex justify-content-between small text-muted mb-1">
+    <span>
+      <a href="{{ overview_url }}" class="text-muted">Lesson {{ lesson_id }}</a>
+      <span class="mx-1">/</span>
+      {{ charcoal.label }}
+    </span>
+    <span>{{ position }} of {{ total }}</span>
+  </div>
+  <div class="progress" style="height: 6px">
+    <div
+      class="progress-bar"
+      style="width: {{ (lesson_id / lesson_count * 100) | round(0) }}%"
+    ></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<article class="card shadow-sm">
+  <div class="card-body p-4 p-md-5">
+    <a href="{{ overview_url }}" class="small text-muted d-inline-flex align-items-center mb-3">
+      &larr; Back to all charcoal types
+    </a>
+
+    <div class="row g-4 g-md-5 align-items-start">
+      <div class="col-md-5">
+        <figure class="charcoal-hero mb-0">
+          <img
+            src="{{ url_for('static', filename=charcoal.image) }}"
+            alt="{{ charcoal.label }} charcoal."
+          />
+        </figure>
+      </div>
+      <div class="col-md-7">
+        <div class="eyebrow">Charcoal Type</div>
+        <h1 class="display-title h2 mb-2">{{ charcoal.label }}</h1>
+        <p class="lead text-muted mb-4">{{ charcoal.tagline }}</p>
+
+        <dl class="charcoal-stats mb-4">
+          <div>
+            <dt>Heat peak</dt>
+            <dd>{{ charcoal.heat_peak }}</dd>
+          </div>
+          <div>
+            <dt>Burn duration</dt>
+            <dd>{{ charcoal.burn_duration }}</dd>
+          </div>
+          <div>
+            <dt>Consistency</dt>
+            <dd>{{ charcoal.consistency }}</dd>
+          </div>
+        </dl>
+
+        <p>{{ charcoal.description }}</p>
+
+        <div class="alert alert-info mt-3 mb-0">
+          <strong>Best for:</strong> {{ charcoal.best_for }}
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <h2 class="h6 mb-2">What it does well</h2>
+        <ul class="charcoal-list">
+          {% for p in charcoal.pros %}
+          <li>{{ p }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h2 class="h6 mb-2">Trade-offs</h2>
+        <ul class="charcoal-list charcoal-list--neutral">
+          {% for c in charcoal.cons %}
+          <li>{{ c }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-5 gap-2 flex-wrap">
+      <div class="d-flex gap-2">
+        {% if prev_slug %}
+        <a href="{{ url_for('charcoal_detail', slug=prev_slug) }}"
+           class="btn btn-outline-secondary btn-sm">&larr; Previous type</a>
+        {% endif %}
+        {% if next_slug %}
+        <a href="{{ url_for('charcoal_detail', slug=next_slug) }}"
+           class="btn btn-outline-secondary btn-sm">Next type &rarr;</a>
+        {% endif %}
+      </div>
+      <a href="{{ overview_url }}" class="btn btn-primary">
+        Back to overview &rarr;
+      </a>
+    </div>
+  </div>
+</article>
+{% endblock %}

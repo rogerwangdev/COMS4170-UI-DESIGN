@@ -88,6 +88,36 @@ def learn(lesson_id):
     entry["last_seen_at"] = now_iso()
     persist_state()
 
+    # Lesson 1 is the editorial-style intro with alternating image/text rows.
+    if lesson_id == 1:
+        return render_template(
+            "learn_charcoal_intro.html",
+            lesson=lesson,
+            lesson_id=lesson_id,
+            lesson_count=LESSON_COUNT,
+            prev_url=prev_url,
+            next_url=next_url,
+            next_label=next_label,
+        )
+
+    # Lesson 2 is the Types of Charcoal overview: hero image + 4 cards that
+    # drill into per-type detail pages. Studied state is tracked per-type.
+    if lesson_id == 2:
+        studied = set(entry.get("studied", []))
+        types = lesson.get("types_of_charcoal", [])
+        return render_template(
+            "learn_charcoal_overview.html",
+            lesson=lesson,
+            lesson_id=lesson_id,
+            lesson_count=LESSON_COUNT,
+            prev_url=prev_url,
+            next_url=next_url,
+            next_label=next_label,
+            types=types,
+            studied=studied,
+            all_studied=len(studied) >= len(types) and len(types) > 0,
+        )
+
     return render_template(
         "learn.html",
         lesson=lesson,
@@ -99,6 +129,44 @@ def learn(lesson_id):
         prior_selection=entry.get("selection"),
     )
 
+
+# Per-charcoal detail pages (drilled into from the Types of Charcoal overview).
+
+def _charcoal_by_slug(slug):
+    for t in CONTENT["lessons"][1].get("types_of_charcoal", []):
+        if t["slug"] == slug:
+            return t
+    return None
+
+
+@app.route("/learn/2/charcoal/<slug>")
+def charcoal_detail(slug):
+    charcoal = _charcoal_by_slug(slug)
+    if charcoal is None:
+        abort(404)
+    types = CONTENT["lessons"][1].get("types_of_charcoal", [])
+    entry = user_state["lessons"].setdefault("2", {})
+    studied = set(entry.get("studied", []))
+    # Mark studied as soon as the user lands on the detail page.
+    if slug not in studied:
+        studied.add(slug)
+        entry["studied"] = sorted(studied)
+        entry["last_action_at"] = now_iso()
+        persist_state()
+    idx = next(i for i, t in enumerate(types) if t["slug"] == slug)
+    prev_slug = types[idx - 1]["slug"] if idx > 0 else None
+    next_slug = types[idx + 1]["slug"] if idx + 1 < len(types) else None
+    return render_template(
+        "learn_charcoal_detail.html",
+        lesson_id=2,
+        lesson_count=LESSON_COUNT,
+        charcoal=charcoal,
+        position=idx + 1,
+        total=len(types),
+        overview_url=url_for("learn", lesson_id=2),
+        prev_slug=prev_slug,
+        next_slug=next_slug,
+    )
 
 
 @app.post("/api/learn/<int:lesson_id>")

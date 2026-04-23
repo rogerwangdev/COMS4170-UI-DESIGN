@@ -261,6 +261,273 @@ footer {
   color: var(--color-dark);
 }
 
+/* --- Lesson 1 intro (editorial layout with paired visuals) --------------- */
+
+.intro-article {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.intro-hero {
+  position: relative;
+  color: #fff;
+  padding: var(--space-6) var(--space-6) var(--space-7);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-accent);
+  background-image:
+    linear-gradient(135deg,
+      rgba(15, 47, 130, 0.82) 0%,
+      rgba(29, 73, 176, 0.60) 55%,
+      rgba(15, 47, 130, 0.88) 100%),
+    url("../media/charcoal-lump.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.intro-hero__eyebrow {
+  position: relative;
+  color: rgba(255, 255, 255, 0.75) !important;
+  margin-bottom: var(--space-2);
+}
+.intro-hero__title {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.1;
+  margin: 0 0 var(--space-3);
+}
+.intro-hero__lead {
+  position: relative;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 56ch;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.intro-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.intro-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: stretch;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.intro-row--reverse .intro-row__text { order: 2; }
+
+.intro-row__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-3) var(--space-4);
+}
+.intro-row__number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+.intro-row__heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 600;
+  color: var(--color-dark);
+  margin: 0 0 var(--space-3);
+  letter-spacing: -0.01em;
+}
+.intro-row__body {
+  color: var(--color-dark-soft);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.intro-row__media {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface-tint);
+  border: 1px solid var(--color-rule-soft);
+  min-height: 220px;
+}
+.intro-row__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .intro-hero { padding: var(--space-5); }
+  .intro-row {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+  .intro-row--reverse .intro-row__text { order: initial; }
+  .intro-row__text { padding: var(--space-2) 0 0; }
+  .intro-row__media { min-height: 180px; }
+}
+
+/* --- Charcoal overview + detail (Lesson 2) -------------------------------- */
+
+.charcoal-hero {
+  margin: 0;
+}
+.charcoal-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+  border: 1px solid var(--color-rule);
+}
+
+.charcoal-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1.5px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-dark);
+  text-decoration: none;
+  height: 100%;
+  text-align: center;
+  transition: border-color var(--trans), transform var(--trans),
+              box-shadow var(--trans);
+}
+.charcoal-tile:hover {
+  border-color: var(--color-mid);
+  color: var(--color-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.charcoal-tile:focus-visible {
+  outline: 3px solid var(--color-accent-tint);
+  outline-offset: 2px;
+}
+
+.charcoal-tile__media {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-surface-tint);
+  border: 1px solid var(--color-rule-soft);
+}
+.charcoal-tile__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.charcoal-tile__label {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--color-dark);
+}
+
+.charcoal-tile.studied {
+  background: var(--color-surface-tint);
+}
+.charcoal-tile.studied .charcoal-tile__label { color: var(--color-dark-soft); }
+
+.charcoal-tile__badge {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mid);
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+/* Detail page stats strip */
+.charcoal-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-tint);
+}
+.charcoal-stats > div { min-width: 0; }
+.charcoal-stats dt {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-mid);
+  margin: 0 0 2px;
+}
+.charcoal-stats dd {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+.charcoal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.charcoal-list li {
+  position: relative;
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-2);
+  font-size: 14px;
+  color: var(--color-dark);
+}
+.charcoal-list li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+.charcoal-list--neutral li::before {
+  content: "−";
+  color: var(--color-mid);
+}
+
+@media (max-width: 576px) {
+  .charcoal-stats { grid-template-columns: 1fr; }
+}
+
 /* --- Forms (quiz answers) ------------------------------------------------- */
 
 .form-check {
