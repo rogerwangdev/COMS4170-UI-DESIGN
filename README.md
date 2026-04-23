@@ -3,6 +3,12 @@
 A ~10-minute interactive tutorial that teaches the basics of charcoal grilling.
 HW 10 technical prototype: Flask + HTML/JS/jQuery/Bootstrap.
 
+## Status
+
+Current focus is on basic functionality and page transitions. Most visuals
+(lesson images, quiz illustrations, final result graphics) are still
+placeholders and will be swapped in as we finish art in a later pass.
+
 ## Run it
 
 ```bash
