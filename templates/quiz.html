@@ -15,9 +15,11 @@
 </div>
 {% endblock %}
 
+{% set has_image_options = question.option_images is defined and question.option_images %}
+{% set has_swatch_options = question.option_swatches is defined and question.option_swatches %}
 
 {% block content %}
-<section class="container-narrow py-3 py-md-4 fade-up fade-up-1">
+<section class="{% if has_image_options or question.hero_image %}container{% else %}container-narrow{% endif %} py-3 py-md-4 fade-up fade-up-1">
   <article class="card p-4 p-md-5">
 
     <div class="d-flex align-items-center justify-content-between mb-3">
@@ -32,8 +34,66 @@
       {{ question.question }}
     </h1>
 
+    {% if question.hero_image %}
+    <figure class="quiz-hero mb-4">
+      <img src="{{ url_for('static', filename=question.hero_image) }}"
+           alt="" loading="lazy" />
+      {% if question.hero_caption %}
+      <figcaption class="small text-muted mt-2">{{ question.hero_caption }}</figcaption>
+      {% endif %}
+    </figure>
+    {% endif %}
 
     <form id="quiz-form" data-q-id="{{ q_id }}" class="mb-2">
+      {% if has_image_options %}
+      <div class="row g-3 quiz-image-options">
+        {% for opt in question.options %}
+        <div class="col-6 col-md-3">
+          <input class="quiz-image-input" type="radio"
+                 name="answer" id="opt-{{ loop.index0 }}"
+                 value="{{ loop.index0 }}"
+                 {% if prior_answer is not none and prior_answer == loop.index0 %}checked{% endif %}>
+          <label class="quiz-image-label" for="opt-{{ loop.index0 }}">
+            <figure class="quiz-image-label__media">
+              <img src="{{ url_for('static', filename=question.option_images[loop.index0]) }}"
+                   alt="" loading="lazy" />
+            </figure>
+            <div class="quiz-image-label__text">
+              <span class="mono quiz-image-label__letter">
+                {{ ['A','B','C','D'][loop.index0] }}
+              </span>
+              <span class="quiz-image-label__name">{{ opt }}</span>
+            </div>
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% elif has_swatch_options %}
+      <div class="row g-3 quiz-swatch-options">
+        {% for opt in question.options %}
+        <div class="col-6 col-md-3">
+          <input class="quiz-image-input" type="radio"
+                 name="answer" id="opt-{{ loop.index0 }}"
+                 value="{{ loop.index0 }}"
+                 {% if prior_answer is not none and prior_answer == loop.index0 %}checked{% endif %}>
+          <label class="quiz-image-label quiz-image-label--swatch"
+                 for="opt-{{ loop.index0 }}">
+            <figure class="quiz-image-label__media quiz-swatch quiz-swatch--{{ question.option_swatches[loop.index0] }}">
+              <span class="quiz-swatch__lid"></span>
+            </figure>
+            <div class="quiz-image-label__text">
+              <span class="mono quiz-image-label__letter">
+                {{ ['A','B','C','D'][loop.index0] }}
+              </span>
+              <span class="quiz-image-label__name">{{ opt }}</span>
+            </div>
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% else %}
       {% for opt in question.options %}
       <div class="form-check fade-up fade-up-{{ loop.index + 1 }}">
         <input class="form-check-input" type="radio"
@@ -50,6 +110,7 @@
         </label>
       </div>
       {% endfor %}
+      {% endif %}
     </form>
 
     <div id="quiz-feedback" class="small mono mt-3"

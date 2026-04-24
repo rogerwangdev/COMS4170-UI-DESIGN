@@ -29,6 +29,17 @@ LESSON_COUNT = len(CONTENT["lessons"])
 QUIZ_COUNT = len(CONTENT["quiz"])
 
 
+@app.before_request
+def _reload_content_in_debug():
+    """Re-read content.json on every request in debug mode so edits to
+    lesson/quiz JSON show up without having to restart the server."""
+    if not app.debug:
+        return
+    global CONTENT, LESSON_COUNT, QUIZ_COUNT
+    CONTENT = load_content()
+    LESSON_COUNT = len(CONTENT["lessons"])
+    QUIZ_COUNT = len(CONTENT["quiz"])
+
 user_state = {
     "start_time": None,
     "lessons": {},

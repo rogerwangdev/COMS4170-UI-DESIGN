@@ -252,11 +252,12 @@
       "topic": "charcoal-types",
       "difficulty": "beginner",
       "related_lesson_id": 2,
-      "options": [
-        "Briquettes",
-        "Lump",
-        "Competition Briquettes",
-        "Bamboo"
+      "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "option_images": [
+        "media/charcoal-briquettes.jpg",
+        "media/charcoal-lump.jpg",
+        "media/charcoal-competition.jpg",
+        "media/charcoal-bamboo.jpg"
       ],
       "answer": 2,
       "explanations": [
@@ -273,11 +274,12 @@
       "topic": "charcoal-types",
       "difficulty": "beginner",
       "related_lesson_id": 2,
-      "options": [
-        "Briquettes",
-        "Lump",
-        "Competition Briquettes",
-        "Bamboo"
+      "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "option_images": [
+        "media/charcoal-briquettes.jpg",
+        "media/charcoal-lump.jpg",
+        "media/charcoal-competition.jpg",
+        "media/charcoal-bamboo.jpg"
       ],
       "answer": 1,
       "explanations": [
@@ -294,11 +296,12 @@
       "topic": "charcoal-types",
       "difficulty": "beginner",
       "related_lesson_id": 2,
-      "options": [
-        "Briquettes",
-        "Lump",
-        "Competition Briquettes",
-        "Bamboo"
+      "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "option_images": [
+        "media/charcoal-briquettes.jpg",
+        "media/charcoal-lump.jpg",
+        "media/charcoal-competition.jpg",
+        "media/charcoal-bamboo.jpg"
       ],
       "answer": 2,
       "explanations": [
@@ -321,6 +324,12 @@
         "Snake Method",
         "Charcoal + Wood Mix"
       ],
+      "option_images": [
+        "media/layout-direct-heat.jpg",
+        "media/layout-two-zone.jpg",
+        "media/layout-snake.jpg",
+        "media/layout-wood-mix.jpg"
+      ],
       "answer": 2,
       "explanations": [
         "Direct Heat spreads coals everywhere for maximum heat—too hot for a long, slow cook.",
@@ -336,12 +345,15 @@
       "topic": "safety",
       "difficulty": "beginner",
       "related_lesson_id": 5,
+      "hero_image": "media/disposal-metal-bucket.jpg",
+      "hero_caption": "Used charcoal — once fully cooled — heads straight to the trash, not recycling or compost.",
       "options": [
         "Blue bin (Recycling)",
         "Green bin (Organic/Compost)",
         "Black bin (General waste / Trash)",
         "Any of the above"
       ],
+      "option_swatches": ["blue", "green", "black", "mixed"],
       "answer": 2,
       "explanations": [
         "Charcoal is not recyclable.",
