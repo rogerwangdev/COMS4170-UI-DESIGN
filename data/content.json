@@ -16,15 +16,15 @@
       "sections": [
         {
           "heading": "Definition",
-          "body": "Charcoal is a carbon-rich material produced by slowly heating wood without oxygen. In grilling it delivers intense, even heat — far hotter than a gas flame can sustain over a full cook."
+          "body": "Charcoal is a carbon-rich material produced by slowly heating wood without oxygen. In grilling it delivers intense, even heat — far hotter than a gas flame can sustain over a full cook.",
+          "media": "media/intro-definition.jpg",
+          "media_alt": "Charcoal burning with bright orange flames."
         },
         {
           "heading": "Flavor",
-          "body": "As charcoal burns it releases aromatic compounds that bond to the surface of whatever you are cooking. That is where the unmistakable smoky flavor of charcoal-grilled food comes from."
-        },
-        {
-          "heading": "Why it matters",
-          "body": "Different charcoal types burn at different temperatures and for different lengths of time. Picking the right one is the first real decision a new griller makes."
+          "body": "As charcoal burns it releases aromatic compounds that bond to the surface of whatever you are cooking. That is where the unmistakable smoky flavor of charcoal-grilled food comes from.",
+          "media": "media/intro-flavor.jpg",
+          "media_alt": "Steaks and vegetables grilling over glowing coals."
         }
       ],
       "interaction": null
@@ -32,8 +32,8 @@
     {
       "id": 2,
       "title": "Types of Charcoal",
-      "instructions": "Tap any charcoal type to see its stats. Your pick is recorded so we can reference it later.",
-      "media": null,
+      "instructions": "Tap a charcoal type to open its detail page. Each type you finish is marked as studied when you return here.",
+      "media": "media/charcoal-overview.jpg",
       "topic": "charcoal-types",
       "difficulty": "beginner",
       "estimated_time": "3 min",
@@ -48,41 +48,92 @@
           "body": "There is no single 'best' charcoal — the right choice depends on how long you need to cook and how hot you need to go."
         }
       ],
-      "interaction": {
-        "type": "choice",
-        "key": "favorite_type",
-        "prompt": "Which one fits the cook you have in mind?",
-        "options": [
-          {
-            "label": "Briquettes",
-            "heat_peak": "650–700°F",
-            "burn_duration": "3–4 hours",
-            "consistency": "95%",
-            "summary": "Uniform pillow-shaped lumps. Consistent, affordable, and easy to light. A great default."
-          },
-          {
-            "label": "Lump",
-            "heat_peak": "800–1000°F",
-            "burn_duration": "1–1.5 hours",
-            "consistency": "60–75%",
-            "summary": "Chunks of natural hardwood. Lights fast and burns very hot, but it burns out quickly."
-          },
-          {
-            "label": "Competition Briquettes",
-            "heat_peak": "700–800°F",
-            "burn_duration": "4–6 hours",
-            "consistency": "95–98%",
-            "summary": "Premium briquettes used by pitmasters. Long, steady burn at a high, consistent heat."
-          },
-          {
-            "label": "Bamboo",
-            "heat_peak": "600–700°F",
-            "burn_duration": "2–3 hours",
-            "consistency": "80–90%",
-            "summary": "Eco-friendly and sustainable. Produces a distinct aroma and a moderately long burn."
-          }
-        ]
-      }
+      "types_of_charcoal": [
+        {
+          "slug": "briquettes",
+          "label": "Briquettes",
+          "image": "media/charcoal-briquettes.jpg",
+          "heat_peak": "650–700°F",
+          "burn_duration": "3–4 hours",
+          "consistency": "95%",
+          "tagline": "The reliable default.",
+          "summary": "Uniform pillow-shaped lumps. Consistent, affordable, and easy to light. A great default.",
+          "description": "Briquettes are the charcoal most grillers start with. They are made from compressed sawdust and wood binders, pressed into uniform pillow shapes so every piece burns roughly the same way. That predictability is what makes them the easiest charcoal to learn on.",
+          "best_for": "Weeknight grilling, burgers, steaks, and anyone who wants predictable, forgiving heat.",
+          "pros": [
+            "Very predictable temperature across a cook",
+            "Affordable and available at any hardware store",
+            "Easy to light with a chimney starter"
+          ],
+          "cons": [
+            "Leaves more ash than natural charcoal",
+            "Won't reach the extreme high heat of lump"
+          ]
+        },
+        {
+          "slug": "lump",
+          "label": "Lump",
+          "image": "media/charcoal-lump.jpg",
+          "heat_peak": "800–1000°F",
+          "burn_duration": "1–1.5 hours",
+          "consistency": "60–75%",
+          "tagline": "Hot and fast.",
+          "summary": "Chunks of natural hardwood. Lights fast and burns very hot, but it burns out quickly.",
+          "description": "Lump charcoal is simply chunks of natural hardwood that have been carbonized. Because it's the raw material with no binders, it lights quickly and burns much hotter than briquettes — but the pieces are irregular, so temperature is harder to hold steady.",
+          "best_for": "Searing steaks, smash burgers, and any cook where you want maximum heat in a short window.",
+          "pros": [
+            "Reaches very high temperatures",
+            "Lights quickly and produces little ash",
+            "100% natural — no binders or additives"
+          ],
+          "cons": [
+            "Burns out fast, not great for long cooks",
+            "Inconsistent piece sizes make temperature control harder"
+          ]
+        },
+        {
+          "slug": "competition",
+          "label": "Competition Briquettes",
+          "image": "media/charcoal-competition.jpg",
+          "heat_peak": "700–800°F",
+          "burn_duration": "4–6 hours",
+          "consistency": "95–98%",
+          "tagline": "Low-and-slow, all day.",
+          "summary": "Premium briquettes used by pitmasters. Long, steady burn at a high, consistent heat.",
+          "description": "Competition briquettes are the premium tier: denser, cleaner-burning, and engineered for the marathon cooks you see at BBQ competitions. They hold a high, steady temperature for hours with almost no babysitting.",
+          "best_for": "Ribs, brisket, pork shoulder — anything you want to cook low and slow for four hours or more.",
+          "pros": [
+            "Longest burn duration of any common charcoal",
+            "Extremely consistent — set it and forget it",
+            "Clean burn, very little ash"
+          ],
+          "cons": [
+            "More expensive than standard briquettes",
+            "Overkill for a quick weeknight cook"
+          ]
+        },
+        {
+          "slug": "bamboo",
+          "label": "Bamboo",
+          "image": "media/charcoal-bamboo.jpg",
+          "heat_peak": "600–700°F",
+          "burn_duration": "2–3 hours",
+          "consistency": "80–90%",
+          "tagline": "Sustainable with a signature aroma.",
+          "summary": "Eco-friendly and sustainable. Produces a distinct aroma and a moderately long burn.",
+          "description": "Bamboo charcoal is made from fast-growing bamboo, a more sustainable source than hardwood. It burns a little cooler than briquettes but produces a distinctive aroma that pairs beautifully with seafood and vegetables.",
+          "best_for": "Seafood, grilled vegetables, and cooks where you want a cleaner, subtly sweet smoke flavor.",
+          "pros": [
+            "Renewable — bamboo regrows in a few years",
+            "Distinct, pleasant aroma",
+            "Moderate burn time fits most backyard cooks"
+          ],
+          "cons": [
+            "Harder to find in standard grocery stores",
+            "Doesn't get as hot as lump for searing"
+          ]
+        }
+      ]
     },
     {
       "id": 3,
@@ -202,6 +253,12 @@
       "difficulty": "beginner",
       "related_lesson_id": 2,
       "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "option_images": [
+        "media/charcoal-briquettes.jpg",
+        "media/charcoal-lump.jpg",
+        "media/charcoal-competition.jpg",
+        "media/charcoal-bamboo.jpg"
+      ],
       "answer": 2,
       "explanations": [
         "Briquettes burn for 3–4 hours, which is long, but not the longest.",
@@ -218,6 +275,12 @@
       "difficulty": "beginner",
       "related_lesson_id": 2,
       "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "option_images": [
+        "media/charcoal-briquettes.jpg",
+        "media/charcoal-lump.jpg",
+        "media/charcoal-competition.jpg",
+        "media/charcoal-bamboo.jpg"
+      ],
       "answer": 1,
       "explanations": [
         "Briquettes peak at 650–700°F.",
@@ -234,6 +297,12 @@
       "difficulty": "beginner",
       "related_lesson_id": 2,
       "options": ["Briquettes", "Lump", "Competition Briquettes", "Bamboo"],
+      "option_images": [
+        "media/charcoal-briquettes.jpg",
+        "media/charcoal-lump.jpg",
+        "media/charcoal-competition.jpg",
+        "media/charcoal-bamboo.jpg"
+      ],
       "answer": 2,
       "explanations": [
         "Briquettes are 95% consistent, very reliable.",
@@ -255,6 +324,12 @@
         "Snake Method",
         "Charcoal + Wood Mix"
       ],
+      "option_images": [
+        "media/layout-direct-heat.jpg",
+        "media/layout-two-zone.jpg",
+        "media/layout-snake.jpg",
+        "media/layout-wood-mix.jpg"
+      ],
       "answer": 2,
       "explanations": [
         "Direct Heat spreads coals everywhere for maximum heat—too hot for a long, slow cook.",
@@ -270,12 +345,15 @@
       "topic": "safety",
       "difficulty": "beginner",
       "related_lesson_id": 5,
+      "hero_image": "media/disposal-metal-bucket.jpg",
+      "hero_caption": "Used charcoal — once fully cooled — heads straight to the trash, not recycling or compost.",
       "options": [
         "Blue bin (Recycling)",
         "Green bin (Organic/Compost)",
         "Black bin (General waste / Trash)",
         "Any of the above"
       ],
+      "option_swatches": ["blue", "green", "black", "mixed"],
       "answer": 2,
       "explanations": [
         "Charcoal is not recyclable.",

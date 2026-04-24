@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Lesson {{ lesson_id }} &mdash; {{ lesson.title }}{% endblock %}
+{% block body_class %}content-wide{% endblock %}
+
+{% block progress %}
+<div class="container pt-3">
+  <div class="d-flex justify-content-between small text-muted mb-1">
+    <span>Lesson {{ lesson_id }} of {{ lesson_count }}</span>
+    <span>Learning</span>
+  </div>
+  <div class="progress" style="height: 6px">
+    <div
+      class="progress-bar"
+      style="width: {{ (lesson_id / lesson_count * 100) | round(0) }}%"
+    ></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<article class="intro-article">
+  <header class="intro-hero">
+    <div class="eyebrow intro-hero__eyebrow">Lesson 1 &middot; The basics</div>
+    <h1 class="intro-hero__title">{{ lesson.title }}</h1>
+    <p class="intro-hero__lead">{{ lesson.instructions }}</p>
+  </header>
+
+  <div class="intro-rows">
+    {% for section in lesson.sections %}
+    <section class="intro-row {% if loop.index0 % 2 == 1 %}intro-row--reverse{% endif %}">
+      <div class="intro-row__text">
+        <div class="intro-row__number">0{{ loop.index }}</div>
+        <h2 class="intro-row__heading">{{ section.heading }}</h2>
+        <p class="intro-row__body">{{ section.body }}</p>
+      </div>
+      <figure class="intro-row__media">
+        <img
+          src="{{ url_for('static', filename=section.media) }}"
+          alt="{{ section.media_alt }}"
+          loading="lazy"
+        />
+      </figure>
+    </section>
+    {% endfor %}
+  </div>
+
+  <div class="d-flex justify-content-between mt-4">
+    <a href="{{ prev_url }}" class="btn btn-outline-secondary">&larr; Back</a>
+    <a href="{{ next_url }}" class="btn btn-primary">{{ next_label }}</a>
+  </div>
+</article>
+{% endblock %}

@@ -5,27 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Charcoal Grill Coach{% endblock %}</title>
 
+  <!-- IBM Plex — Serif (display) + Sans (body) + Mono (eyebrows / code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script>
+    // ?static=1 pins every fade-up/pop-in to its final state (for screenshots).
+    if (new URLSearchParams(location.search).has('static')) {
+      document.documentElement.classList.add('no-anim');
+    }
+  </script>
 </head>
-<body class="bg-light">
-  <nav class="navbar navbar-dark bg-dark">
+<body class="bg-light {% block body_class %}{% endblock %}">
+  <nav class="navbar navbar-dark">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('home') }}">
         Charcoal Grill Coach
       </a>
-      <span class="text-white-50 small">HW 10 Technical Prototype</span>
+      <span class="small">COMS 4170 &middot; Spring 2026</span>
     </div>
   </nav>
 
   {% block progress %}{% endblock %}
 
-  <main class="container py-4">
+  <main class="container py-4 py-md-5">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="text-center text-muted small py-3">
-    COMS 4170 Spring 2026 &middot; Technical Prototype
+  <footer class="text-center">
+    <div class="container">
+      COMS 4170 &middot; Spring 2026 &middot; Charcoal Grill Coach
+    </div>
   </footer>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

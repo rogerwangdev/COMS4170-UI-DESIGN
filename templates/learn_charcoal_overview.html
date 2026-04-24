@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Lesson {{ lesson_id }} &mdash; {{ lesson.title }}{% endblock %}
+{% block body_class %}content-wide{% endblock %}
+
+{% block progress %}
+<div class="container pt-3">
+  <div class="d-flex justify-content-between small text-muted mb-1">
+    <span>Lesson {{ lesson_id }} of {{ lesson_count }}</span>
+    <span>Learning</span>
+  </div>
+  <div class="progress" style="height: 6px">
+    <div
+      class="progress-bar"
+      style="width: {{ (lesson_id / lesson_count * 100) | round(0) }}%"
+    ></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section
+  class="intro-hero editorial-band lesson-hero fade-up fade-up-1"
+  style="background-image:
+    linear-gradient(135deg,
+      var(--color-accent-dark) 0%,
+      var(--color-accent) 55%,
+      var(--color-accent-dark) 100%);"
+>
+  <div class="editorial-band__grid">
+    <div class="editorial-band__copy">
+      <div class="intro-hero__eyebrow kicker">
+        Lesson {{ lesson_id }} of {{ lesson_count }}
+      </div>
+      <h1 class="intro-hero__title">{{ lesson.title }}</h1>
+      <p class="intro-hero__lead">{{ lesson.instructions }}</p>
+    </div>
+    <dl class="editorial-band__stats">
+      <div>
+        <dt>Difficulty</dt>
+        <dd>{{ lesson.difficulty | capitalize }}</dd>
+      </div>
+      <div>
+        <dt>Read time</dt>
+        <dd>{{ lesson.estimated_time }}</dd>
+      </div>
+      <div>
+        <dt>Types to study</dt>
+        <dd>{{ types|length }}</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="overview-picker fade-up fade-up-2 mt-4 mt-md-5">
+  <header class="overview-picker-header">
+    <div class="overview-picker-header__copy">
+      <div class="kicker">Four profiles</div>
+      <h2 class="picker-heading">{{ lesson.sections[0].heading }}</h2>
+      <p class="picker-subhead">{{ lesson.sections[0].body }}</p>
+    </div>
+    <div class="overview-picker-header__meta">
+      <span class="picker-count">
+        {{ studied|length }} / {{ types|length }} studied
+      </span>
+    </div>
+  </header>
+
+  <div class="row g-4">
+    {% for t in types %}
+    <div class="col-6 col-lg-3">
+      <a
+        href="{{ url_for('charcoal_detail', slug=t.slug) }}"
+        class="charcoal-tile {% if t.slug in studied %}studied{% endif %}"
+        aria-label="Open {{ t.label }} detail page"
+      >
+        <figure class="charcoal-tile__media">
+          <img
+            src="{{ url_for('static', filename=t.image) }}"
+            alt=""
+            loading="lazy"
+          />
+          {% if t.slug in studied %}
+          <span class="charcoal-tile__badge" aria-label="Studied">&check; Studied</span>
+          {% endif %}
+        </figure>
+        <div class="charcoal-tile__body">
+          <div class="charcoal-tile__label">{{ t.label }}</div>
+          {% if t.tagline %}
+          <div class="charcoal-tile__tagline">{{ t.tagline }}</div>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <p class="small text-muted mt-4 mb-0">
+    {% if all_studied %}
+    You've studied every type &mdash; you're ready to move on.
+    {% else %}
+    Tap a card to learn its heat, burn time, and best uses.
+    {% endif %}
+  </p>
+</section>
+
+<nav class="page-nav fade-up fade-up-3">
+  <a href="{{ prev_url }}" class="btn btn-outline-secondary">&larr; Back</a>
+  <a href="{{ next_url }}" class="btn btn-primary">{{ next_label }}</a>
+</nav>
+{% endblock %}

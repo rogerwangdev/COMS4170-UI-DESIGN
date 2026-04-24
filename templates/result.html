@@ -1,164 +1,201 @@
-{% extends "base.html" %} {% block title %}Quiz Results — Charcoal Grill Coach{%
-endblock %} {% block content %}
-<!-- Performance Summary -->
-<div class="text-center mb-5">
-  <h1 class="display-4 fw-bold mb-3">Your Grilling Score</h1>
+{% extends "base.html" %}
+{% block title %}Your Grilling Score &mdash; Charcoal Grill Coach{% endblock %}
+{% block body_class %}content-wide{% endblock %}
 
-  <div class="row g-3 mb-4">
-    <div class="col-md-6">
-      <div class="card border-0 bg-light">
-        <div class="card-body text-center">
-          <div class="display-6 fw-bold text-{{ performance_color }}">
-            {{ score_percentage }}%
-          </div>
-          <div class="text-muted small">Overall Performance</div>
-          <div class="badge bg-{{ performance_color }} mt-2">
-            {{ performance_level }}
+{% block content %}
+<section class="py-2 py-md-3 fade-up fade-up-1">
+
+  <!-- Hero: score + encouragement -->
+  <div class="card mb-4 position-relative overflow-hidden"
+       style="background-color: var(--color-accent); color: #fff;
+              border: none; border-radius: var(--radius-lg);
+              padding: var(--space-6) var(--space-6);">
+
+    <!-- Decorative grid of rules in the background (very subtle) -->
+    <div aria-hidden="true"
+         style="position: absolute; inset: 0; opacity: 0.08;
+                background-image:
+                  linear-gradient(to right, #fff 1px, transparent 1px),
+                  linear-gradient(to bottom, #fff 1px, transparent 1px);
+                background-size: 40px 40px;
+                pointer-events: none;"></div>
+
+    <div class="row g-4 align-items-center position-relative">
+      <div class="col-md-5">
+        <div class="mono mb-2"
+             style="color: rgba(255,255,255,0.8); font-size: 11px;
+                    letter-spacing: 0.14em; text-transform: uppercase;">
+          Your grilling score
+        </div>
+        <div class="serif pop-in" style="font-size: clamp(4.5rem, 9vw, 6rem); font-weight: 600; line-height: 1;">
+          {{ correct }} <span style="opacity: 0.55; font-weight: 400;">/</span> {{ total }}
+        </div>
+        <div class="mt-3" style="font-size: 17px; color: rgba(255,255,255,0.9);">
+          {{ score_percentage | round(0) | int }}%
+          <span style="opacity: 0.55; margin: 0 8px;">&middot;</span>
+          <span style="font-weight: 500;">{{ performance_headline }}</span>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <p class="mb-0" style="font-size: 16px; line-height: 1.55; color: rgba(255,255,255,0.92);">
+          {{ performance_message }}
+        </p>
+        {% if total_session_time %}
+        <div class="mono mt-4"
+             style="font-size: 11px; letter-spacing: 0.1em;
+                    text-transform: uppercase; color: rgba(255,255,255,0.7);">
+          Total time {{ (total_session_time / 60) | round(1) }} min
+          {% if time_per_question %}
+            &nbsp;&middot;&nbsp; {{ time_per_question }}s per question
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Question breakdown row -->
+  <div class="mb-5 fade-up fade-up-2">
+    <div class="eyebrow mb-3">Question breakdown</div>
+    <div class="row g-3">
+      {% for row in breakdown %}
+      <div class="col-6 col-md">
+        <div class="card h-100 p-3 d-flex flex-row align-items-center gap-3"
+             style="border-color: {% if row.is_correct %}var(--color-rule){% else %}var(--color-red){% endif %};
+                    border-width: 1.5px;
+                    background-color: {% if row.is_correct %}var(--color-surface){% else %}var(--color-red-tint){% endif %};">
+          <span style="flex-shrink: 0; width: 28px; height: 28px;
+                       border-radius: 50%;
+                       background-color: {% if row.is_correct %}var(--color-mid){% else %}var(--color-red){% endif %};
+                       color: #fff; display: flex; align-items: center;
+                       justify-content: center; font-size: 13px; font-weight: 700;">
+            {% if row.is_correct %}&check;{% else %}&times;{% endif %}
+          </span>
+          <div style="min-width: 0;">
+            <div class="mono" style="font-size: 11px; font-weight: 600;
+                                     color: var(--color-dark);
+                                     letter-spacing: 0.04em;">
+              Q{{ row.id }}
+            </div>
+            <div class="small" style="color: var(--color-mid); font-size: 12px;
+                                      overflow: hidden; text-overflow: ellipsis;
+                                      white-space: nowrap;">
+              {{ row.short_topic }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card border-0 bg-light">
-        <div class="card-body text-center">
-          <div class="display-6 fw-bold">{{ correct }}/{{ total }}</div>
-          <div class="text-muted small">Questions Correct</div>
-          <div class="progress mt-3" style="height: 8px">
-            <div
-              class="progress-bar bg-{{ performance_color }}"
-              style="width: {{ score_percentage }}%"
-            ></div>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 
-  {% if total_session_time %}
-  <div class="small text-muted">
-    <span class="me-3"
-      >⏱ Total time:
-      <strong>{{ (total_session_time / 60) | round(1) }} minutes</strong></span
-    >
-    {% if time_per_question %}
-    <span
-      >⌛ Average per question:
-      <strong>{{ time_per_question }} seconds</strong></span
-    >
-    {% endif %}
-  </div>
-  {% endif %}
-</div>
-
-<!-- Recommendations -->
-{% if recommendations %}
-<div class="card shadow-sm border-warning mb-4">
-  <div class="card-header bg-light border-bottom-warning">
-    <h5 class="mb-0">
-      <i class="bi bi-lightbulb"></i> Recommended Lessons to Review
-    </h5>
-  </div>
-  <div class="card-body">
-    <p class="text-muted small mb-3">
-      Based on your quiz performance, consider reviewing these lessons:
-    </p>
-    <div class="row g-2">
+  <!-- Up next (recommendation) -->
+  {% if recommendations %}
+  <div class="mb-5 fade-up fade-up-3">
+    <div class="eyebrow mb-3">Up next</div>
+    <div class="row g-3">
       {% for rec in recommendations %}
       <div class="col-md-6">
-        <a
-          href="{{ url_for('learn', lesson_id=rec.lesson_id) }}"
-          class="card card-hover text-decoration-none text-dark border-warning-subtle"
-        >
-          <div class="card-body p-3">
-            <div class="fw-semibold small">{{ rec.lesson_title }}</div>
-            <div class="text-muted small mt-1">{{ rec.reason }}</div>
+        <a href="{{ url_for('learn', lesson_id=rec.lesson_id) }}"
+           class="card card-hover text-decoration-none d-block p-4"
+           style="color: var(--color-dark);">
+          <div class="mono mb-2"
+               style="color: var(--color-accent); font-size: 11px;
+                      letter-spacing: 0.1em; text-transform: uppercase;
+                      font-weight: 600;">
+            Review &middot; Lesson {{ rec.lesson_id }}
+          </div>
+          <div class="serif mb-1"
+               style="font-weight: 600; font-size: 20px;">
+            {{ rec.lesson_title }}
+          </div>
+          <div class="small" style="color: var(--color-mid);">
+            {{ rec.reason }}
+          </div>
+          <div class="mt-3"
+               style="font-size: 14px; color: var(--color-accent); font-weight: 500;">
+            Revisit lesson &rarr;
           </div>
         </a>
       </div>
       {% endfor %}
     </div>
   </div>
-</div>
-{% endif %}
+  {% endif %}
 
-<!-- Question Breakdown -->
-<div class="card shadow-sm mb-4">
-  <div class="card-header bg-light">
-    <h5 class="mb-0">Question-by-Question Breakdown</h5>
-  </div>
-  <ul class="list-group list-group-flush">
-    {% for row in breakdown %}
-    <li class="list-group-item">
-      <div class="row align-items-start">
-        <div class="col-md-8">
-          <div class="d-flex align-items-center mb-2">
-            <span class="fw-semibold">Q{{ row.id }}.</span>
+  <!-- Full breakdown details (collapsible) -->
+  <div class="fade-up fade-up-4">
+    <div class="eyebrow mb-3">Answer details</div>
+    <div class="card p-0">
+      {% for row in breakdown %}
+      <div class="p-4"
+           {% if not loop.last %}style="border-bottom: 1px solid var(--color-rule-soft);"{% endif %}>
+        <div class="d-flex justify-content-between align-items-start gap-3 mb-2 flex-wrap">
+          <div class="d-flex align-items-center gap-2">
+            <span class="mono" style="font-size: 12px; font-weight: 600;
+                                      color: var(--color-mid);">Q{{ row.id }}</span>
             {% if row.is_correct %}
-            <span class="badge bg-success ms-2">✓ Correct</span>
+              <span class="badge">Correct</span>
             {% else %}
-            <span class="badge bg-danger ms-2">✗ Incorrect</span>
+              <span class="badge" style="background-color: var(--color-red-tint) !important; color: var(--color-red) !important;">Incorrect</span>
             {% endif %}
           </div>
-          <div class="small mb-2">{{ row.question }}</div>
-          <div class="small text-muted">
-            <strong>Your answer:</strong> {{ row.chosen_label or '(no answer)'
-            }} {% if not row.is_correct %}
-            <br />
-            <strong>Correct answer:</strong> {{ row.correct_label }} {% endif %}
-          </div>
-          {% if row.key_takeaway %}
-          <div class="alert alert-info small mt-2 mb-0 py-2 px-3">
-            <strong>Key takeaway:</strong> {{ row.key_takeaway }}
-          </div>
-          {% endif %}
-        </div>
-        <div class="col-md-4 text-md-end">
           {% if row.related_lesson_id %}
-          <a
-            href="{{ url_for('learn', lesson_id=row.related_lesson_id) }}"
-            class="btn btn-sm btn-outline-primary"
-          >
-            Review Lesson
+          <a href="{{ url_for('learn', lesson_id=row.related_lesson_id) }}"
+             class="small" style="color: var(--color-accent); font-weight: 500;">
+            Review Lesson {{ row.related_lesson_id }} &rarr;
           </a>
           {% endif %}
         </div>
+        <div class="serif mb-2" style="font-size: 17px; font-weight: 500; color: var(--color-dark);">
+          {{ row.question }}
+        </div>
+        <div class="small mb-2" style="color: var(--color-dark-soft);">
+          <strong style="color: var(--color-mid); font-weight: 600; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;">
+            Your answer:
+          </strong>
+          {{ row.chosen_label or '(no answer)' }}
+          {% if not row.is_correct %}
+            <br>
+            <strong style="color: var(--color-mid); font-weight: 600; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;">
+              Correct answer:
+            </strong>
+            {{ row.correct_label }}
+          {% endif %}
+        </div>
+        {% if row.key_takeaway %}
+        <div class="alert alert-info mt-3 mb-0 small">
+          <strong style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;">Takeaway:</strong>
+          {{ row.key_takeaway }}
+        </div>
+        {% endif %}
       </div>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-
-<!-- Call to Action -->
-<div class="text-center mt-5">
-  {% if score_percentage < 80 %}
-  <p class="text-muted mb-3">
-    Want to improve your score? Review the lessons and try again!
-  </p>
-  {% else %}
-  <p class="text-muted mb-3">
-    Great job! You've mastered the basics of charcoal grilling.
-  </p>
-  {% endif %}
-
-  <div class="d-flex gap-2 justify-content-center flex-wrap">
-    <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
-      &larr; Back to Start
-    </a>
-    {% if score_percentage < 100 %}
-    <a
-      href="{{ url_for('learn', lesson_id=1) }}"
-      class="btn btn-outline-success"
-    >
-      📚 Review All Lessons
-    </a>
-    {% endif %}
-    <button id="retake-btn" class="btn btn-success">🔄 Retake Quiz</button>
+      {% endfor %}
+    </div>
   </div>
-</div>
-{% endblock %} {% block extra_js %}
+
+  <!-- Footer actions -->
+  <div class="d-flex justify-content-center gap-3 mt-5 flex-wrap fade-up fade-up-5">
+    <button id="retake-btn" class="btn btn-primary btn-lg">
+      Retake Quiz
+    </button>
+    <a href="{{ url_for('learn', lesson_id=1) }}" class="btn btn-outline-secondary btn-lg">
+      Review All Lessons
+    </a>
+    <a href="{{ url_for('home') }}" class="btn btn-outline-secondary btn-lg">
+      Back to Start
+    </a>
+  </div>
+
+</section>
+{% endblock %}
+
+{% block extra_js %}
 <script>
   $(function () {
     $("#retake-btn").on("click", function () {
+      var $btn = $(this);
+      $btn.prop("disabled", true).text("Resetting...");
       $.ajax({
         url: "/api/start",
         method: "POST",
@@ -167,6 +204,7 @@ endblock %} {% block content %}
           window.location.href = "{{ url_for('quiz', q_id=1) }}";
         },
         error: function () {
+          $btn.prop("disabled", false).text("Retake Quiz");
           alert("Error resetting quiz. Please try again.");
         },
       });
