@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Ready for the quiz &mdash; Charcoal Grill Coach{% endblock %}
+{% block body_class %}content-wide{% endblock %}
 
 {% block progress %}
 <div class="container pt-3">
-  <div class="d-flex justify-content-between small mono mb-2" style="color: var(--color-mid); letter-spacing: 0.1em; text-transform: uppercase;">
+  <div class="d-flex justify-content-between small mono mb-2"
+       style="color: var(--color-mid); letter-spacing: 0.1em; text-transform: uppercase;">
     <span>Learning complete</span>
     <span>Quiz next</span>
   </div>
@@ -14,66 +16,77 @@
 {% endblock %}
 
 {% block content %}
-<section class="container-narrow py-4 py-md-5 fade-up fade-up-1">
-  <div class="card p-4 p-md-5 text-center">
-
-    <!-- Check disc -->
-    <div class="d-flex justify-content-center mb-4">
-      <div class="pop-in"
-           style="width: 84px; height: 84px; border-radius: 50%;
-                  background-color: var(--color-accent);
-                  display: flex; align-items: center; justify-content: center;
-                  box-shadow: 0 8px 24px rgba(29, 73, 176, 0.25);">
-        <svg width="38" height="38" viewBox="0 0 24 24" fill="none"
-             stroke="#fff" stroke-width="2.8" stroke-linecap="round"
-             stroke-linejoin="round">
-          <polyline points="4 13 9 18 20 6"></polyline>
-        </svg>
+<section
+  class="intro-hero editorial-band fade-up fade-up-1"
+  style="background-image:
+    linear-gradient(135deg,
+      var(--color-accent-dark) 0%,
+      var(--color-accent) 55%,
+      var(--color-accent-dark) 100%);"
+>
+  <div class="editorial-band__grid">
+    <div class="editorial-band__copy">
+      <div class="intro-hero__eyebrow kicker">Learning complete</div>
+      <h1 class="intro-hero__title">Ready for the quiz?</h1>
+      <p class="intro-hero__lead">
+        You've worked through all {{ lesson_count }} lessons &mdash; charcoal, fire layouts,
+        cooking, and cleanup. Next up: a short {{ quiz_count }}-question check
+        to lock it in.
+      </p>
+    </div>
+    <dl class="editorial-band__stats">
+      <div>
+        <dt>Lessons done</dt>
+        <dd>{{ lesson_count }} of {{ lesson_count }}</dd>
       </div>
-    </div>
-
-    <div class="eyebrow mb-3 fade-up fade-up-2">Ready for the quiz?</div>
-
-    <h1 class="display-title mb-3 fade-up fade-up-3"
-        style="font-size: clamp(1.8rem, 3.4vw, 2.4rem);">
-      You've finished the {{ lesson_count }} lessons.
-    </h1>
-
-    <p class="mb-4 fade-up fade-up-3"
-       style="color: var(--color-mid); font-size: 15px;">
-      {{ quiz_count }} questions &middot; about 3 minutes &middot;
-      covers everything you just read.
-    </p>
-
-    <!-- Checklist of what's ahead -->
-    <ul class="list-unstyled text-start mx-auto mb-5 fade-up fade-up-4"
-        style="max-width: 420px; font-size: 14px;">
-      {% for item in quiz_overview %}
-      <li class="d-flex align-items-start gap-3 py-2"
-          style="border-bottom: 1px solid var(--color-rule-soft);">
-        <span class="mono"
-              style="color: var(--color-accent); font-weight: 600;
-                     font-size: 12px; min-width: 3ch; padding-top: 2px;">
-          Q{{ loop.index }}
-        </span>
-        <span style="color: var(--color-dark-soft);">{{ item }}</span>
-      </li>
-      {% endfor %}
-    </ul>
-
-    <div class="d-flex justify-content-center gap-3 flex-wrap fade-up fade-up-5">
-      <a href="{{ url_for('quiz', q_id=1) }}" class="btn btn-primary btn-lg">
-        Start Quiz &rarr;
-      </a>
-      <a href="{{ url_for('learn', lesson_id=1) }}"
-         class="btn btn-outline-secondary btn-lg">
-        Review Lessons
-      </a>
-    </div>
+      <div>
+        <dt>Questions</dt>
+        <dd>{{ quiz_count }}</dd>
+      </div>
+      <div>
+        <dt>Estimated time</dt>
+        <dd>~3 min</dd>
+      </div>
+    </dl>
   </div>
-
-  <p class="text-center small mt-4 mono" style="color: var(--color-mid); letter-spacing: 0.08em; text-transform: uppercase;">
-    You can come back to any lesson afterwards
-  </p>
 </section>
+
+<section class="quiz-notice fade-up fade-up-2 mt-4 mt-md-5">
+  <div class="quiz-notice__icon" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+         stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="13"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+  </div>
+  <div class="quiz-notice__body">
+    <div class="kicker">Before you begin</div>
+    <h2 class="quiz-notice__title">Make sure you've covered everything</h2>
+    <p class="quiz-notice__text">
+      The quiz draws from material across all {{ lesson_count }} lessons &mdash;
+      especially <strong>Types of Charcoal</strong> and the
+      <strong>fire layout methods</strong>. If any topic feels unclear, take a
+      minute to revisit the lesson before you start. There's no rush.
+    </p>
+    <a href="{{ url_for('learn', lesson_id=1) }}" class="quiz-notice__link">
+      Revisit lessons &rarr;
+    </a>
+  </div>
+</section>
+
+<section class="transition-cta fade-up fade-up-3 mt-4 mt-md-5">
+  <a href="{{ url_for('quiz', q_id=1) }}" class="btn btn-primary btn-lg">
+    Start Quiz &rarr;
+  </a>
+  <a href="{{ url_for('learn', lesson_id=1) }}"
+     class="btn btn-outline-secondary btn-lg">
+    Review Lessons
+  </a>
+</section>
+
+<p class="transition-footnote fade-up fade-up-4">
+  You can come back to any lesson afterwards
+</p>
 {% endblock %}

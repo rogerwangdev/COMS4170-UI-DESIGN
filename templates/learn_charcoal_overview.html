@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}Lesson {{ lesson_id }} — {{ lesson.title }}{% endblock %}
+{% block title %}Lesson {{ lesson_id }} &mdash; {{ lesson.title }}{% endblock %}
+{% block body_class %}content-wide{% endblock %}
 
 {% block progress %}
 <div class="container pt-3">
@@ -17,69 +18,93 @@
 {% endblock %}
 
 {% block content %}
-<article class="card shadow-sm">
-  <div class="card-body p-4">
-    <div class="row g-4 align-items-center">
-      <div class="col-md-7">
-        <h1 class="h3 mb-2">{{ lesson.title }}</h1>
-        <p class="text-muted mb-3">{{ lesson.instructions }}</p>
-        <h2 class="h6 mb-1">{{ lesson.sections[0].heading }}</h2>
-        <p class="small mb-0">{{ lesson.sections[0].body }}</p>
+<section
+  class="intro-hero editorial-band lesson-hero fade-up fade-up-1"
+  style="background-image:
+    linear-gradient(135deg,
+      var(--color-accent-dark) 0%,
+      var(--color-accent) 55%,
+      var(--color-accent-dark) 100%);"
+>
+  <div class="editorial-band__grid">
+    <div class="editorial-band__copy">
+      <div class="intro-hero__eyebrow kicker">
+        Lesson {{ lesson_id }} of {{ lesson_count }}
       </div>
-      <div class="col-md-5">
-        <figure class="charcoal-hero mb-0">
-          <img
-            src="{{ url_for('static', filename=lesson.media) }}"
-            alt="Briquettes, Lump Charcoal, Competition Briquettes, and Bamboo shown together."
-            loading="lazy"
-          />
-        </figure>
-      </div>
+      <h1 class="intro-hero__title">{{ lesson.title }}</h1>
+      <p class="intro-hero__lead">{{ lesson.instructions }}</p>
     </div>
+    <dl class="editorial-band__stats">
+      <div>
+        <dt>Difficulty</dt>
+        <dd>{{ lesson.difficulty | capitalize }}</dd>
+      </div>
+      <div>
+        <dt>Read time</dt>
+        <dd>{{ lesson.estimated_time }}</dd>
+      </div>
+      <div>
+        <dt>Types to study</dt>
+        <dd>{{ types|length }}</dd>
+      </div>
+    </dl>
+  </div>
+</section>
 
-    <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mt-4 mb-3">
-      <h2 class="h6 mb-0">Pick a type to study</h2>
-      <span class="small text-muted mono">
+<section class="overview-picker fade-up fade-up-2 mt-4 mt-md-5">
+  <header class="overview-picker-header">
+    <div class="overview-picker-header__copy">
+      <div class="kicker">Four profiles</div>
+      <h2 class="picker-heading">{{ lesson.sections[0].heading }}</h2>
+      <p class="picker-subhead">{{ lesson.sections[0].body }}</p>
+    </div>
+    <div class="overview-picker-header__meta">
+      <span class="picker-count">
         {{ studied|length }} / {{ types|length }} studied
       </span>
     </div>
+  </header>
 
-    <div class="row g-3">
-      {% for t in types %}
-      <div class="col-6 col-lg-3">
-        <a
-          href="{{ url_for('charcoal_detail', slug=t.slug) }}"
-          class="charcoal-tile {% if t.slug in studied %}studied{% endif %}"
-          aria-label="Open {{ t.label }} detail page"
-        >
-          <figure class="charcoal-tile__media">
-            <img
-              src="{{ url_for('static', filename=t.image) }}"
-              alt=""
-              loading="lazy"
-            />
-          </figure>
-          <div class="charcoal-tile__label">{{ t.label }}</div>
+  <div class="row g-4">
+    {% for t in types %}
+    <div class="col-6 col-lg-3">
+      <a
+        href="{{ url_for('charcoal_detail', slug=t.slug) }}"
+        class="charcoal-tile {% if t.slug in studied %}studied{% endif %}"
+        aria-label="Open {{ t.label }} detail page"
+      >
+        <figure class="charcoal-tile__media">
+          <img
+            src="{{ url_for('static', filename=t.image) }}"
+            alt=""
+            loading="lazy"
+          />
           {% if t.slug in studied %}
-          <span class="charcoal-tile__badge" aria-label="Studied">✓ Studied</span>
+          <span class="charcoal-tile__badge" aria-label="Studied">&check; Studied</span>
           {% endif %}
-        </a>
-      </div>
-      {% endfor %}
+        </figure>
+        <div class="charcoal-tile__body">
+          <div class="charcoal-tile__label">{{ t.label }}</div>
+          {% if t.tagline %}
+          <div class="charcoal-tile__tagline">{{ t.tagline }}</div>
+          {% endif %}
+        </div>
+      </a>
     </div>
-
-    <p class="small text-muted mt-3 mb-0">
-      {% if all_studied %}
-      You've studied every type — you're ready to move on.
-      {% else %}
-      Open each card to learn its heat, burn time, and best uses.
-      {% endif %}
-    </p>
-
-    <div class="d-flex justify-content-between mt-4">
-      <a href="{{ prev_url }}" class="btn btn-outline-secondary">&larr; Back</a>
-      <a href="{{ next_url }}" class="btn btn-primary">{{ next_label }}</a>
-    </div>
+    {% endfor %}
   </div>
-</article>
+
+  <p class="small text-muted mt-4 mb-0">
+    {% if all_studied %}
+    You've studied every type &mdash; you're ready to move on.
+    {% else %}
+    Tap a card to learn its heat, burn time, and best uses.
+    {% endif %}
+  </p>
+</section>
+
+<nav class="page-nav fade-up fade-up-3">
+  <a href="{{ prev_url }}" class="btn btn-outline-secondary">&larr; Back</a>
+  <a href="{{ next_url }}" class="btn btn-primary">{{ next_label }}</a>
+</nav>
 {% endblock %}

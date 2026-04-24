@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block title %}{{ charcoal.label }} — Types of Charcoal{% endblock %}
+{% block title %}{{ charcoal.label }} &mdash; Types of Charcoal{% endblock %}
+{% block body_class %}content-wide{% endblock %}
 
 {% block progress %}
 <div class="container pt-3">
@@ -21,85 +22,133 @@
 {% endblock %}
 
 {% block content %}
-<article class="card shadow-sm">
-  <div class="card-body p-4 p-md-5">
-    <a href="{{ overview_url }}" class="small text-muted d-inline-flex align-items-center mb-3">
-      &larr; Back to all charcoal types
-    </a>
+<header class="page-header fade-up fade-up-1">
+  <a href="{{ overview_url }}" class="back-link">&larr; Back to all charcoal types</a>
+  <div class="eyebrow">Charcoal Type</div>
+  <h1 class="display-title">{{ charcoal.label }}</h1>
+  <p class="page-header__lead">{{ charcoal.tagline }}</p>
+</header>
 
-    <div class="row g-4 g-md-5 align-items-start">
-      <div class="col-md-5">
-        <figure class="charcoal-hero mb-0">
-          <img
-            src="{{ url_for('static', filename=charcoal.image) }}"
-            alt="{{ charcoal.label }} charcoal."
-          />
-        </figure>
-      </div>
-      <div class="col-md-7">
-        <div class="eyebrow">Charcoal Type</div>
-        <h1 class="display-title h2 mb-2">{{ charcoal.label }}</h1>
-        <p class="lead text-muted mb-4">{{ charcoal.tagline }}</p>
+<section class="detail-main row g-4 g-md-5 align-items-start fade-up fade-up-2">
+  <div class="col-lg-5">
+    <figure class="charcoal-hero mb-0">
+      <img
+        src="{{ url_for('static', filename=charcoal.image) }}"
+        alt="{{ charcoal.label }} charcoal."
+      />
+    </figure>
+  </div>
 
-        <dl class="charcoal-stats mb-4">
-          <div>
-            <dt>Heat peak</dt>
-            <dd>{{ charcoal.heat_peak }}</dd>
-          </div>
-          <div>
-            <dt>Burn duration</dt>
-            <dd>{{ charcoal.burn_duration }}</dd>
-          </div>
-          <div>
-            <dt>Consistency</dt>
-            <dd>{{ charcoal.consistency }}</dd>
-          </div>
-        </dl>
+  <div class="col-lg-7">
+    <p class="detail-description">{{ charcoal.description }}</p>
 
-        <p>{{ charcoal.description }}</p>
+    <aside class="best-for-callout">
+      <span class="best-for-callout__label">Best for</span>
+      <p class="best-for-callout__text">{{ charcoal.best_for }}</p>
+    </aside>
+  </div>
+</section>
 
-        <div class="alert alert-info mt-3 mb-0">
-          <strong>Best for:</strong> {{ charcoal.best_for }}
+{#
+  Range parsing. All four types in content.json follow the same format:
+    heat_peak:      "650–700°F"    or "600–700°F"
+    burn_duration:  "3–4 hours"    or "1–1.5 hours"
+    consistency:    "95%"          or "60–75%"
+  Split on the en-dash (U+2013); when there's no range, low == high.
+  Scale bounds are fixed so bars are directly comparable across all four types.
+#}
+{% set HEAT_MIN = 500 %}{% set HEAT_MAX = 1100 %}
+{% set BURN_MIN = 0 %}{% set BURN_MAX = 7 %}
+{% set CONS_MIN = 0 %}{% set CONS_MAX = 100 %}
+
+{% set heat_str = charcoal.heat_peak | replace('°F', '') | replace('°C', '') | trim %}
+{% set heat_parts = heat_str.split('–') %}
+{% set heat_low = heat_parts[0] | trim | int %}
+{% set heat_high = heat_parts[-1] | trim | int %}
+{% set heat_left = ((heat_low - HEAT_MIN) * 100 / (HEAT_MAX - HEAT_MIN)) | round(2) %}
+{% set heat_width = ((heat_high - heat_low) * 100 / (HEAT_MAX - HEAT_MIN)) | round(2) %}
+
+{% set burn_str = charcoal.burn_duration | replace('hours', '') | replace('hour', '') | trim %}
+{% set burn_parts = burn_str.split('–') %}
+{% set burn_low = burn_parts[0] | trim | float %}
+{% set burn_high = burn_parts[-1] | trim | float %}
+{% set burn_left = ((burn_low - BURN_MIN) * 100 / (BURN_MAX - BURN_MIN)) | round(2) %}
+{% set burn_width = ((burn_high - burn_low) * 100 / (BURN_MAX - BURN_MIN)) | round(2) %}
+
+{% set cons_str = charcoal.consistency | replace('%', '') | trim %}
+{% set cons_parts = cons_str.split('–') %}
+{% set cons_low = cons_parts[0] | trim | int %}
+{% set cons_high = cons_parts[-1] | trim | int %}
+{% set cons_left = ((cons_low - CONS_MIN) * 100 / (CONS_MAX - CONS_MIN)) | round(2) %}
+{% set cons_width = ((cons_high - cons_low) * 100 / (CONS_MAX - CONS_MIN)) | round(2) %}
+
+<section class="fade-up fade-up-3 mt-4 mt-md-5">
+  <dl class="big-stats">
+    <div>
+      <dt>Heat peak</dt>
+      <dd>{{ charcoal.heat_peak }}</dd>
+      <div class="stat-gauge stat-gauge--heat" role="img"
+           aria-label="Heat {{ charcoal.heat_peak }} on a scale from {{ HEAT_MIN }}°F to {{ HEAT_MAX }}°F">
+        <div class="stat-gauge__track">
+          <div class="stat-gauge__fill"
+               style="left: {{ heat_left }}%; width: {{ heat_width }}%;"></div>
+        </div>
+        <div class="stat-gauge__scale">
+          <span>{{ HEAT_MIN }}&deg;F</span>
+          <span>{{ HEAT_MAX }}&deg;F</span>
         </div>
       </div>
     </div>
 
-    <hr class="rule" />
-
-    <div class="row g-4">
-      <div class="col-md-6">
-        <h2 class="h6 mb-2">What it does well</h2>
-        <ul class="charcoal-list">
-          {% for p in charcoal.pros %}
-          <li>{{ p }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="col-md-6">
-        <h2 class="h6 mb-2">Trade-offs</h2>
-        <ul class="charcoal-list charcoal-list--neutral">
-          {% for c in charcoal.cons %}
-          <li>{{ c }}</li>
-          {% endfor %}
-        </ul>
+    <div>
+      <dt>Burn duration</dt>
+      <dd>{{ charcoal.burn_duration }}</dd>
+      <div class="stat-gauge stat-gauge--burn" role="img"
+           aria-label="Burn duration {{ charcoal.burn_duration }} on a scale from 0 to {{ BURN_MAX }} hours">
+        <div class="stat-gauge__track">
+          <div class="stat-gauge__fill"
+               style="left: {{ burn_left }}%; width: {{ burn_width }}%;"></div>
+        </div>
+        <div class="stat-gauge__scale">
+          <span>{{ BURN_MIN }}h</span>
+          <span>{{ BURN_MAX }}h</span>
+        </div>
       </div>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mt-5 gap-2 flex-wrap">
-      <div class="d-flex gap-2">
-        {% if prev_slug %}
-        <a href="{{ url_for('charcoal_detail', slug=prev_slug) }}"
-           class="btn btn-outline-secondary btn-sm">&larr; Previous type</a>
-        {% endif %}
-        {% if next_slug %}
-        <a href="{{ url_for('charcoal_detail', slug=next_slug) }}"
-           class="btn btn-outline-secondary btn-sm">Next type &rarr;</a>
-        {% endif %}
+    <div>
+      <dt>Consistency</dt>
+      <dd>{{ charcoal.consistency }}</dd>
+      <div class="stat-gauge stat-gauge--consistency" role="img"
+           aria-label="Consistency {{ charcoal.consistency }} on a scale from 0 to 100 percent">
+        <div class="stat-gauge__track">
+          <div class="stat-gauge__fill"
+               style="left: {{ cons_left }}%; width: {{ cons_width }}%;"></div>
+        </div>
+        <div class="stat-gauge__scale">
+          <span>{{ CONS_MIN }}%</span>
+          <span>{{ CONS_MAX }}%</span>
+        </div>
       </div>
-      <a href="{{ overview_url }}" class="btn btn-primary">
-        Back to overview &rarr;
-      </a>
     </div>
+  </dl>
+</section>
+
+<nav class="page-nav fade-up fade-up-4">
+  <div class="d-flex gap-2 flex-wrap">
+    {% if prev_slug %}
+    <a href="{{ url_for('charcoal_detail', slug=prev_slug) }}" class="btn btn-outline-secondary btn-sm">
+      &larr; Previous type
+    </a>
+    {% endif %}
+    {% if next_slug %}
+    <a href="{{ url_for('charcoal_detail', slug=next_slug) }}" class="btn btn-outline-secondary btn-sm">
+      Next type &rarr;
+    </a>
+    {% endif %}
   </div>
-</article>
+  <a href="{{ overview_url }}" class="btn btn-primary">
+    Back to overview &rarr;
+  </a>
+</nav>
 {% endblock %}

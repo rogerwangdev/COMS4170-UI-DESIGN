@@ -212,12 +212,10 @@ def _short_topic(q):
 @app.route("/transition")
 def transition():
     """Confirmation screen between lesson 5 and quiz 1."""
-    quiz_overview = [_short_topic(q) for q in CONTENT["quiz"]]
     return render_template(
         "transition.html",
         lesson_count=LESSON_COUNT,
         quiz_count=QUIZ_COUNT,
-        quiz_overview=quiz_overview,
     )
 
 
