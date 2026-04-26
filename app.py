@@ -129,6 +129,51 @@ def learn(lesson_id):
             all_studied=len(studied) >= len(types) and len(types) > 0,
         )
 
+    # Lesson 3 is the Grilling Techniques overview: hero image + 4 cards that
+    # drill into per-technique detail pages. Studied state is tracked per-technique.
+    if lesson_id == 3:
+        studied = set(entry.get("studied", []))
+        techniques = lesson.get("techniques", [])
+        return render_template(
+            "learn_techniques_overview.html",
+            lesson=lesson,
+            lesson_id=lesson_id,
+            lesson_count=LESSON_COUNT,
+            prev_url=prev_url,
+            next_url=next_url,
+            next_label=next_label,
+            techniques=techniques,
+            studied=studied,
+            all_studied=len(studied) >= len(techniques) and len(techniques) > 0,
+        )
+
+    # Lesson 4 is the Practice Layouts lesson: choose which technique to practice
+    # with image-based choice cards.
+    if lesson_id == 4:
+        return render_template(
+            "learn_practice_layouts.html",
+            lesson=lesson,
+            lesson_id=lesson_id,
+            lesson_count=LESSON_COUNT,
+            prev_url=prev_url,
+            next_url=next_url,
+            next_label=next_label,
+            prior_selection=entry.get("selection"),
+        )
+
+    # Lesson 5 is the Safety & Disposal lesson: editorial-style intro like Lesson 1
+    # with alternating image/text rows.
+    if lesson_id == 5:
+        return render_template(
+            "learn_safety.html",
+            lesson=lesson,
+            lesson_id=lesson_id,
+            lesson_count=LESSON_COUNT,
+            prev_url=prev_url,
+            next_url=next_url,
+            next_label=next_label,
+        )
+
     return render_template(
         "learn.html",
         lesson=lesson,
@@ -145,6 +190,13 @@ def learn(lesson_id):
 
 def _charcoal_by_slug(slug):
     for t in CONTENT["lessons"][1].get("types_of_charcoal", []):
+        if t["slug"] == slug:
+            return t
+    return None
+
+
+def _technique_by_slug(slug):
+    for t in CONTENT["lessons"][2].get("techniques", []):
         if t["slug"] == slug:
             return t
     return None
@@ -175,6 +227,36 @@ def charcoal_detail(slug):
         position=idx + 1,
         total=len(types),
         overview_url=url_for("learn", lesson_id=2),
+        prev_slug=prev_slug,
+        next_slug=next_slug,
+    )
+
+
+@app.route("/learn/3/technique/<slug>")
+def technique_detail(slug):
+    technique = _technique_by_slug(slug)
+    if technique is None:
+        abort(404)
+    techniques = CONTENT["lessons"][2].get("techniques", [])
+    entry = user_state["lessons"].setdefault("3", {})
+    studied = set(entry.get("studied", []))
+    # Mark studied as soon as the user lands on the detail page.
+    if slug not in studied:
+        studied.add(slug)
+        entry["studied"] = sorted(studied)
+        entry["last_action_at"] = now_iso()
+        persist_state()
+    idx = next(i for i, t in enumerate(techniques) if t["slug"] == slug)
+    prev_slug = techniques[idx - 1]["slug"] if idx > 0 else None
+    next_slug = techniques[idx + 1]["slug"] if idx + 1 < len(techniques) else None
+    return render_template(
+        "learn_techniques_detail.html",
+        lesson_id=3,
+        lesson_count=LESSON_COUNT,
+        technique=technique,
+        position=idx + 1,
+        total=len(techniques),
+        overview_url=url_for("learn", lesson_id=3),
         prev_slug=prev_slug,
         next_slug=next_slug,
     )
