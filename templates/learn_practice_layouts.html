@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block title %}Lesson {{ lesson_id }} &mdash; {{
+lesson.title }}{% endblock %} {% block body_class %}content-wide{% endblock %}
+{% block progress %}
+<div class="container pt-3">
+  <div class="d-flex justify-content-between small text-muted mb-1">
+    <span>Lesson {{ lesson_id }} of {{ lesson_count }}</span>
+    <span>Learning</span>
+  </div>
+  <div class="progress" style="height: 6px">
+    <div
+      class="progress-bar"
+      style="width: {{ (lesson_id / lesson_count * 100) | round(0) }}%"
+    ></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<header class="page-header fade-up fade-up-1">
+  <div class="eyebrow">Lesson {{ lesson_id }}</div>
+  <h1 class="display-title">{{ lesson.title }}</h1>
+  <p class="page-header__lead">{{ lesson.instructions }}</p>
+</header>
+
+{% if lesson.sections %}
+<article class="section-card lesson-prose fade-up fade-up-2">
+  {% for section in lesson.sections %}
+  <section class="lesson-section">
+    <h2>{{ section.heading }}</h2>
+    <p>{{ section.body }}</p>
+  </section>
+  {% endfor %}
+</article>
+{% endif %} {% if lesson.interaction %} {% set inter = lesson.interaction %}
+<section class="lesson-interaction fade-up fade-up-3">
+  <div class="kicker mb-2">Which technique first?</div>
+  <h2 class="lesson-interaction__prompt">{{ inter.prompt }}</h2>
+
+  <div class="row g-4 mt-4">
+    {% for opt in inter.options %}
+    <div class="col-6 col-md-3">
+      <button
+        type="button"
+        class="choice-image-card btn text-start w-100 h-100 p-0"
+        data-label="{{ opt.label }}"
+      >
+        <figure class="choice-image-card__media">
+          <img
+            src="{{ url_for('static', filename=opt.image) }}"
+            alt=""
+            loading="lazy"
+          />
+        </figure>
+        <div class="choice-image-card__body">
+          <div class="choice-image-card__label">{{ opt.label }}</div>
+          <div class="choice-image-card__best-for">
+            Best for: {{ opt.best_for }}
+          </div>
+          <div class="choice-image-card__summary">{{ opt.summary }}</div>
+        </div>
+      </button>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div id="choice-feedback" class="small text-success mt-4">
+    {% if prior_selection %}You picked <strong>{{ prior_selection }}</strong>.{%
+    endif %}
+  </div>
+</section>
+{% endif %}
+
+<nav class="page-nav fade-up fade-up-4">
+  <a href="{{ prev_url }}" class="btn btn-outline-secondary">&larr; Back</a>
+  <a href="{{ next_url }}" id="next-btn" class="btn btn-success">
+    {{ next_label }}
+  </a>
+</nav>
+{% endblock %} {% block extra_js %}
+<script>
+  $(function () {
+    var $buttons = $(".choice-image-card");
+    if (!$buttons.length) return;
+
+    function markSelected(label) {
+      $buttons.each(function () {
+        var $b = $(this);
+        if ($b.data("label") === label) {
+          $b.addClass("selected");
+        } else {
+          $b.removeClass("selected");
+        }
+      });
+    }
+
+    $buttons.on("click", function () {
+      var label = $(this).data("label");
+      markSelected(label);
+      $.post(
+        "/api/learn/4",
+        JSON.stringify({ selection: label }),
+        function () {
+          // Selection saved
+        },
+        "json",
+      );
+    });
+  });
+</script>
+{% endblock %}

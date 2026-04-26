@@ -1,7 +1,5 @@
-{% extends "base.html" %}
-{% block title %}Lesson {{ lesson_id }} &mdash; {{ lesson.title }}{% endblock %}
-{% block body_class %}content-wide{% endblock %}
-
+{% extends "base.html" %} {% block title %}Lesson {{ lesson_id }} &mdash; {{
+lesson.title }}{% endblock %} {% block body_class %}content-wide{% endblock %}
 {% block progress %}
 <div class="container pt-3">
   <div class="d-flex justify-content-between small text-muted mb-1">
@@ -15,15 +13,14 @@
     ></div>
   </div>
 </div>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <header class="page-header fade-up fade-up-1">
   <div class="eyebrow">Lesson {{ lesson_id }}</div>
   <h1 class="display-title">{{ lesson.title }}</h1>
   <p class="page-header__lead">{{ lesson.instructions }}</p>
 </header>
 
+{% if lesson.sections %}
 <article class="section-card lesson-prose fade-up fade-up-2">
   {% for section in lesson.sections %}
   <section class="lesson-section">
@@ -32,21 +29,21 @@
   </section>
   {% endfor %}
 </article>
-
-{% if lesson.interaction %}
-{% set inter = lesson.interaction %}
+{% endif %} {% if lesson.interaction %} {% set inter = lesson.interaction %}
 <section class="lesson-interaction fade-up fade-up-3">
   <div class="kicker mb-2">Check your understanding</div>
   <h2 class="lesson-interaction__prompt">{{ inter.prompt }}</h2>
+</section>
 
+<div class="interaction-grid-wrapper fade-up fade-up-3">
   <div
     id="choice-grid"
-    class="row g-3"
+    class="row g-3 justify-content-center"
     data-lesson-id="{{ lesson_id }}"
     data-prior="{{ prior_selection or '' }}"
   >
     {% for opt in inter.options %}
-    <div class="col-md-6">
+    <div class="col-md-6 col-lg-5">
       <button
         type="button"
         class="choice-card btn btn-outline-secondary text-start w-100 h-100 p-3"
@@ -54,25 +51,22 @@
       >
         <div class="fw-bold mb-1">{{ opt.label }}</div>
         <div class="small text-muted">
-          {% if opt.heat_peak %}
-          Heat peak: {{ opt.heat_peak }} &middot;
-          Burns: {{ opt.burn_duration }} &middot;
-          Consistency: {{ opt.consistency }}<br />
-          {% endif %}
-          {% if opt.best_for %}
+          {% if opt.heat_peak %} Heat peak: {{ opt.heat_peak }} &middot; Burns:
+          {{ opt.burn_duration }} &middot; Consistency: {{ opt.consistency }}<br />
+          {% endif %} {% if opt.best_for %}
           <em>Best for:</em> {{ opt.best_for }}<br />
-          {% endif %}
-          {{ opt.summary }}
+          {% endif %} {{ opt.summary }}
         </div>
       </button>
     </div>
     {% endfor %}
   </div>
 
-  <div id="choice-feedback" class="small text-success mt-3">
-    {% if prior_selection %}You picked <strong>{{ prior_selection }}</strong>.{% endif %}
+  <div id="choice-feedback" class="small text-success mt-3 text-center">
+    {% if prior_selection %}You picked <strong>{{ prior_selection }}</strong>.{%
+    endif %}
   </div>
-</section>
+</div>
 {% endif %}
 
 <nav class="page-nav fade-up fade-up-4">
@@ -81,9 +75,7 @@
     {{ next_label }}
   </a>
 </nav>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script>
   $(function () {
     var $grid = $("#choice-grid");

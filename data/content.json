@@ -58,7 +58,7 @@
           "consistency": "95%",
           "tagline": "The reliable default.",
           "summary": "Uniform pillow-shaped lumps. Consistent, affordable, and easy to light. A great default.",
-          "description": "Briquettes are the charcoal most grillers start with. They are made from compressed sawdust and wood binders, pressed into uniform pillow shapes so every piece burns roughly the same way. That predictability is what makes them the easiest charcoal to learn on.",
+          "description": "Compressed sawdust and wood binders, pressed into uniform pillow shapes. Predictable, affordable, and easy to learn on.",
           "best_for": "Weeknight grilling, burgers, steaks, and anyone who wants predictable, forgiving heat.",
           "pros": [
             "Very predictable temperature across a cook",
@@ -79,7 +79,7 @@
           "consistency": "60–75%",
           "tagline": "Hot and fast.",
           "summary": "Chunks of natural hardwood. Lights fast and burns very hot, but it burns out quickly.",
-          "description": "Lump charcoal is simply chunks of natural hardwood that have been carbonized. Because it's the raw material with no binders, it lights quickly and burns much hotter than briquettes — but the pieces are irregular, so temperature is harder to hold steady.",
+          "description": "Chunks of natural hardwood that light quickly and burn much hotter than briquettes. Irregular pieces make temperature control harder.",
           "best_for": "Searing steaks, smash burgers, and any cook where you want maximum heat in a short window.",
           "pros": [
             "Reaches very high temperatures",
@@ -137,33 +137,110 @@
     },
     {
       "id": 3,
-      "title": "Grilling Techniques — The Big Picture",
-      "instructions": "Skim the four techniques. The next page lets you compare them side by side.",
+      "title": "Grilling Techniques",
+      "instructions": "Tap a technique to learn how to set it up and what to cook on it.",
       "media": "media/lesson3.jpg",
       "topic": "grilling-techniques",
       "difficulty": "intermediate",
-      "estimated_time": "2 min",
+      "estimated_time": "4 min",
       "learning_objectives": [
-        "Name four fundamental charcoal grilling techniques",
-        "Understand the heat characteristics of each technique",
-        "Identify which technique suits different cooking styles"
+        "Master four fundamental charcoal grilling layouts",
+        "Understand the heat characteristics and ideal uses of each technique",
+        "Match cooking styles to the best layout for your next cook"
       ],
       "sections": [
         {
-          "heading": "Two-Zone",
-          "body": "Pile coals on one side of the grill and leave the other side empty. You get a hot zone for searing and a cool zone for finishing — the most forgiving setup for beginners."
+          "heading": "Four layouts for every cook",
+          "body": "Each layout delivers heat differently. Go all-in on one, or mix and match depending on what you're cooking."
+        }
+      ],
+      "techniques": [
+        {
+          "slug": "two-zone",
+          "label": "Two-Zone",
+          "image": "media/two-zone.jpg",
+          "heat_level": "High + Medium",
+          "setup_time": "3 minutes",
+          "ideal_duration": "45 min – 2 hours",
+          "tagline": "Sear, then finish.",
+          "summary": "Coals on one side, empty grate on the other. The most forgiving all-rounder.",
+          "description": "Coals on one side, empty grate on the other. You get a hot zone for searing and a cool zone for gentle finishing.",
+          "best_for": "Chicken thighs, bone-in cuts, thick steaks, burgers, vegetables — anything where you want a good sear without burning it.",
+          "pros": [
+            "Most forgiving layout for beginners",
+            "Works for fast cooks and medium cooks alike",
+            "Easy to adjust temperature on the fly by moving food"
+          ],
+          "cons": [
+            "Takes more babysitting than Snake Method",
+            "Not ideal for truly low-and-slow cooking"
+          ]
         },
         {
-          "heading": "Snake Method",
-          "body": "Arrange unlit coals in a C-shape around the edge, light one end, and let the burn creep slowly around. Produces hours of low, steady heat — ideal for ribs and brisket."
+          "slug": "snake-method",
+          "label": "Snake Method",
+          "image": "media/snake-method.jpg",
+          "heat_level": "Low & Steady",
+          "setup_time": "10 minutes",
+          "ideal_duration": "4–6 hours",
+          "tagline": "Set it and forget it.",
+          "summary": "Coals in a line or C-shape, lit at one end. Burns slowly for hours.",
+          "description": "Arrange unlit coals in a C-shape, light one end, and close the lid. The burn creeps slowly around the snake for hours of low, steady heat.",
+          "best_for": "Ribs, brisket, pork shoulder, whole chicken — any low-and-slow cook that runs 4 hours or longer.",
+          "pros": [
+            "Produces hours of steady, low heat",
+            "Minimal temperature fluctuation",
+            "No need to add charcoal or adjust vents constantly"
+          ],
+          "cons": [
+            "More setup work than Two-Zone",
+            "Too slow for quick cooks",
+            "Takes precision to get the initial temperature right"
+          ]
         },
         {
-          "heading": "Direct Heat",
-          "body": "Coals spread evenly under the entire grate for maximum heat everywhere. Best for fast cooks like burgers and hot dogs."
+          "slug": "direct-heat",
+          "label": "Direct Heat",
+          "image": "media/direct-heat.jpg",
+          "heat_level": "Maximum Heat",
+          "setup_time": "2 minutes",
+          "ideal_duration": "10–30 minutes",
+          "tagline": "Fast, hot, and aggressive.",
+          "summary": "Coals spread evenly under the entire grate. Go big on heat everywhere.",
+          "description": "Spread coals evenly under the entire grate for maximum heat everywhere. Perfect for fast cooks that benefit from a hard char.",
+          "best_for": "Burgers, hot dogs, sausages, shrimp, grilled vegetables — fast cooks where speed and color matter more than gentle heat.",
+          "pros": [
+            "Maximum heat everywhere",
+            "Fastest setup of any layout",
+            "Creates a beautiful, even char"
+          ],
+          "cons": [
+            "Can easily dry out thick cuts if not careful",
+            "No cool zone to move food to if it's burning",
+            "Difficult for low-and-slow cooking"
+          ]
         },
         {
-          "heading": "Charcoal + Wood Mix",
-          "body": "Drop chunks of hardwood on top of lit coals for an extra layer of smoke flavor. Great for smoked wings and pork shoulder."
+          "slug": "charcoal-wood-mix",
+          "label": "Charcoal + Wood",
+          "image": "media/charcoal-wood-mix.jpg",
+          "heat_level": "Medium + Smoke",
+          "setup_time": "5 minutes",
+          "ideal_duration": "2–4 hours",
+          "tagline": "Maximum flavor on charcoal.",
+          "summary": "Lit charcoal base plus hardwood chunks on top. Brings the smoke.",
+          "description": "Add hardwood chunks (oak, hickory, cherry) on top of lit coals to release smoke. Quick smoke flavor without the 12-hour cook time.",
+          "best_for": "Smoked chicken wings, pork shoulder, brisket — any cut where flavor matters and you want the speed of charcoal with the taste of smoke.",
+          "pros": [
+            "Adds deep smoke flavor quickly",
+            "Works on any charcoal grill",
+            "Faster than traditional offset smokers"
+          ],
+          "cons": [
+            "Requires soaking wood chunks first (optional but recommended)",
+            "Harder to control smoke output",
+            "Not as smoky as dedicated smokers"
+          ]
         }
       ],
       "interaction": null
@@ -171,21 +248,14 @@
     {
       "id": 4,
       "title": "Charcoal Layouts in Practice",
-      "instructions": "Imagine the dish you want to cook, then tap the layout you would use.",
+      "instructions": "Pick the layout for your dish.",
       "media": null,
       "topic": "grilling-techniques",
       "difficulty": "intermediate",
       "estimated_time": "2 min",
       "learning_objectives": [
-        "Apply grilling techniques to real cooking scenarios",
-        "Match cooking methods to desired food outcomes",
-        "Plan layout selection based on cook duration and heat needs"
-      ],
-      "sections": [
-        {
-          "heading": "Match the food to the layout",
-          "body": "Each layout plays to different strengths. Your selection helps us recommend a first cook at the end."
-        }
+        "Choose the right layout for your food",
+        "Match heat and time to your cook"
       ],
       "interaction": {
         "type": "choice",
@@ -194,23 +264,27 @@
         "options": [
           {
             "label": "Two-Zone",
+            "image": "media/twoZone.jpg",
             "best_for": "Chicken thighs, bone-in cuts, thick steaks",
-            "summary": "Sear over the hot side, then slide to the cool side to finish without burning."
+            "summary": "Sear hot, finish cool. Control heat by moving food."
           },
           {
             "label": "Snake Method",
+            "image": "media/snakeMethod.jpg",
             "best_for": "Ribs, brisket, pork shoulder",
-            "summary": "Low, steady heat for hours. Set it up, close the lid, and let time do the work."
+            "summary": "Arrange coals in a line, light one end, wait."
           },
           {
             "label": "Direct Heat",
+            "image": "media/directHeat.jpg",
             "best_for": "Burgers, hot dogs, quick veggies",
-            "summary": "Maximum heat everywhere. Fast cooks with a strong sear."
+            "summary": "Spread coals under entire grate for maximum heat."
           },
           {
             "label": "Charcoal + Wood Mix",
+            "image": "media/charcoalWoordMix.jpg",
             "best_for": "Smoked chicken wings, pork shoulder",
-            "summary": "Adds wood-smoke flavor on top of a charcoal base. Great when flavor matters more than speed."
+            "summary": "Top coals with hardwood chunks for quick smoke."
           }
         ]
       }
@@ -218,28 +292,33 @@
     {
       "id": 5,
       "title": "Safety & Disposal",
-      "instructions": "The last lesson. Read the safety checklist, then head to the quiz.",
+      "instructions": "Three steps: cool, extinguish, dispose.",
       "media": "media/lesson5.jpg",
       "topic": "safety",
       "difficulty": "beginner",
       "estimated_time": "2 min",
       "learning_objectives": [
-        "Understand proper charcoal cooling and extinguishing procedures",
-        "Learn safe disposal methods for used charcoal",
-        "Recognize the hazards of improperly cooled charcoal"
+        "Cool and extinguish coals safely",
+        "Dispose in regular trash"
       ],
       "sections": [
         {
-          "heading": "1. Make sure the coals are cold",
-          "body": "After cooking, close all vents and let the coals burn down. They can stay hot for up to 24 hours — never assume they are out just because the flames are gone."
+          "heading": "1. Cool the coals",
+          "body": "Close vents and let coals cool. They stay hot 24 hours—don't assume they're out.",
+          "media": "media/coals.jpg",
+          "media_alt": "Glowing charcoal coals cooling down in a grill."
         },
         {
-          "heading": "2. Extinguish with water, not just air",
-          "body": "Carefully pour water on the coals and stir until no steam rises and no glowing embers remain. This is the only reliable way to confirm the fire is fully out."
+          "heading": "2. Extinguish with water",
+          "body": "Pour water on coals and stir until no steam or embers remain.",
+          "media": "media/extinguish.jpg",
+          "media_alt": "Pouring water on hot charcoal coals to extinguish them."
         },
         {
-          "heading": "3. Dispose in a metal container",
-          "body": "Used charcoal is not recyclable and not compostable. Once the ashes are completely cool, seal them in a metal container and place them in the regular trash."
+          "heading": "3. Dispose safely",
+          "body": "Cool ashes go in a metal container, then regular trash.",
+          "media": "media/metal.jpg",
+          "media_alt": "Metal container with cooled charcoal ashes ready for disposal."
         }
       ],
       "interaction": null
