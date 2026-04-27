@@ -247,50 +247,6 @@
     },
     {
       "id": 4,
-      "title": "Charcoal Layouts in Practice",
-      "instructions": "Pick the layout for your dish.",
-      "media": null,
-      "topic": "grilling-techniques",
-      "difficulty": "intermediate",
-      "estimated_time": "2 min",
-      "learning_objectives": [
-        "Choose the right layout for your food",
-        "Match heat and time to your cook"
-      ],
-      "interaction": {
-        "type": "choice",
-        "key": "favorite_layout",
-        "prompt": "Which layout are you most curious to try?",
-        "options": [
-          {
-            "label": "Two-Zone",
-            "image": "media/twoZone.jpg",
-            "best_for": "Chicken thighs, bone-in cuts, thick steaks",
-            "summary": "Sear hot, finish cool. Control heat by moving food."
-          },
-          {
-            "label": "Snake Method",
-            "image": "media/snakeMethod.jpg",
-            "best_for": "Ribs, brisket, pork shoulder",
-            "summary": "Arrange coals in a line, light one end, wait."
-          },
-          {
-            "label": "Direct Heat",
-            "image": "media/directHeat.jpg",
-            "best_for": "Burgers, hot dogs, quick veggies",
-            "summary": "Spread coals under entire grate for maximum heat."
-          },
-          {
-            "label": "Charcoal + Wood Mix",
-            "image": "media/charcoalWoordMix.jpg",
-            "best_for": "Smoked chicken wings, pork shoulder",
-            "summary": "Top coals with hardwood chunks for quick smoke."
-          }
-        ]
-      }
-    },
-    {
-      "id": 5,
       "title": "Safety & Disposal",
       "instructions": "Three steps: cool, extinguish, dispose.",
       "media": "media/lesson5.jpg",
@@ -423,7 +379,7 @@
       "question": "In the U.S., which waste category should used charcoal be disposed in?",
       "topic": "safety",
       "difficulty": "beginner",
-      "related_lesson_id": 5,
+      "related_lesson_id": 4,
       "hero_image": "media/disposal-metal-bucket.jpg",
       "hero_caption": "Used charcoal — once fully cooled — heads straight to the trash, not recycling or compost.",
       "options": [

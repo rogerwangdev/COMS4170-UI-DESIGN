@@ -147,23 +147,9 @@ def learn(lesson_id):
             all_studied=len(studied) >= len(techniques) and len(techniques) > 0,
         )
 
-    # Lesson 4 is the Practice Layouts lesson: choose which technique to practice
-    # with image-based choice cards.
-    if lesson_id == 4:
-        return render_template(
-            "learn_practice_layouts.html",
-            lesson=lesson,
-            lesson_id=lesson_id,
-            lesson_count=LESSON_COUNT,
-            prev_url=prev_url,
-            next_url=next_url,
-            next_label=next_label,
-            prior_selection=entry.get("selection"),
-        )
-
-    # Lesson 5 is the Safety & Disposal lesson: editorial-style intro like Lesson 1
+    # Lesson 4 is the Safety & Disposal lesson: editorial-style intro like Lesson 1
     # with alternating image/text rows.
-    if lesson_id == 5:
+    if lesson_id == 4:
         return render_template(
             "learn_safety.html",
             lesson=lesson,
