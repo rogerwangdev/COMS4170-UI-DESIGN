@@ -335,6 +335,15 @@ footer {
 .choice-image-card.selected .choice-image-card__media img {
   transform: scale(1.05);
 }
+.choice-image-card__media .choice-image-card__diagram[src$=".svg"] {
+  object-fit: contain;
+  padding: var(--space-4);
+  background: var(--color-surface);
+}
+.choice-image-card:hover .choice-image-card__diagram[src$=".svg"],
+.choice-image-card.selected .choice-image-card__diagram[src$=".svg"] {
+  transform: none;
+}
 
 .choice-image-card__body {
   display: flex;
@@ -503,7 +512,11 @@ footer {
 /* --- Charcoal overview + detail (Lesson 2) -------------------------------- */
 
 .charcoal-hero {
+  position: relative;
   margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 .charcoal-hero img {
   display: block;
@@ -512,6 +525,33 @@ footer {
   border-radius: var(--radius-md);
   background: var(--color-surface-tint);
   border: 1px solid var(--color-rule);
+}
+.charcoal-hero::after {
+  /* very faint inset vignette so the hero sits in its frame instead of
+     floating against the cream page. Stays inside the existing palette. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 26, 46, 0) 0%,
+    rgba(15, 26, 46, 0) 70%,
+    rgba(15, 26, 46, 0.06) 100%
+  );
+}
+/* When the hero is showing an SVG diagram (technique detail page), drop the
+   photo framing and the vignette so the diagram reads as a clean schematic. */
+.charcoal-hero__diagram {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-rule) !important;
+  padding: var(--space-5);
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+.charcoal-hero:has(.charcoal-hero__diagram)::after {
+  display: none;
 }
 
 .charcoal-tile {
@@ -1348,7 +1388,7 @@ body.content-wide .container {
   }
 }
 
-/* --- Detail page sections (learn_charcoal_detail.html) ------------------- */
+/* --- Detail page sections (learn_charcoal_detail.html, learn_techniques_detail.html) ----- */
 
 .detail-main,
 .detail-tradeoffs {
@@ -1359,6 +1399,127 @@ body.content-wide .container {
   line-height: 1.7;
   max-width: 62ch;
   margin-bottom: var(--space-4);
+}
+.detail-tradeoffs__heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-3);
+  color: var(--color-dark);
+}
+
+/* Lead description, shown directly under the H1 + tagline so the page
+   opens with one short paragraph of context instead of paragraph-of-prose
+   buried in the right column. */
+.detail-description--lead {
+  margin-top: var(--space-3);
+  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 64ch;
+}
+
+/* Right column on detail pages. On lg+ the column flex-fills the height
+   of the hero media on the left so the bottom of the third attribute
+   card lines up with the bottom of the photo. Best For sits at the top
+   at its content height; the three stat cards distribute the remaining
+   vertical space equally. */
+.detail-main__right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.detail-main__right .best-for-callout {
+  flex: 0 0 auto;
+  margin-top: 0; /* override default since it's now first in the column */
+}
+.detail-main__right .stat-list {
+  flex: 1 1 auto;
+}
+.detail-main__right .stat-list__item {
+  flex: 1 1 0;
+}
+
+/* Vertical stat list: each item is its own self-contained card with
+   breathing room between them, so the three attributes read as three
+   distinct facts rather than as one merged list. */
+.stat-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+}
+.stat-list__item {
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stat-list__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-mid);
+  margin: 0 0 var(--space-2);
+}
+.stat-list__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-dark);
+  margin: 0 0 var(--space-3);
+}
+.stat-list__value:last-child {
+  /* When a card has no trailing gauge / meter (e.g. technique attributes),
+     don't carry empty space below the value. */
+  margin-bottom: 0;
+}
+.stat-list .stat-gauge {
+  margin-top: var(--space-2);
+}
+.stat-list .stat-meter + .stat-meter__scale {
+  margin-top: 6px;
+}
+
+/* 4-step meter for non-numeric attributes (e.g. ash production: very low →
+   high). Stays inside the existing palette: filled steps use --color-accent,
+   empty steps use --color-rule-soft. Visually rhymes with the gauge bar
+   without overlapping its meaning. */
+.stat-meter {
+  display: flex;
+  gap: 4px;
+  margin-top: var(--space-2);
+}
+.stat-meter__step {
+  flex: 1;
+  height: 8px;
+  background: var(--color-rule-soft);
+  border-radius: 999px;
+}
+.stat-meter__step--on {
+  background: var(--color-accent);
+}
+.stat-meter__scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-mid);
 }
 
 /* --- Overview sections (learn_charcoal_overview.html) -------------------- */

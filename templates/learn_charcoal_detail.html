@@ -24,42 +24,19 @@
 {% block content %}
 <header class="page-header fade-up fade-up-1">
   <a href="{{ overview_url }}" class="back-link">&larr; Back to all charcoal types</a>
-  <div class="eyebrow">Charcoal Type</div>
+  <div class="eyebrow">Charcoal &middot; Type {{ position }} of {{ total }}</div>
   <h1 class="display-title">{{ charcoal.label }}</h1>
-  <p class="page-header__lead">{{ charcoal.tagline }}</p>
+  <p class="detail-description detail-description--lead">{{ charcoal.summary }}</p>
 </header>
 
-<section class="detail-main row g-4 g-md-5 align-items-start fade-up fade-up-2">
-  <div class="col-lg-5">
-    <figure class="charcoal-hero mb-0">
-      <img
-        src="{{ url_for('static', filename=charcoal.image) }}"
-        alt="{{ charcoal.label }} charcoal."
-      />
-    </figure>
-  </div>
-
-  <div class="col-lg-7">
-    <p class="detail-description">{{ charcoal.description }}</p>
-
-    <aside class="best-for-callout">
-      <span class="best-for-callout__label">Best for</span>
-      <p class="best-for-callout__text">{{ charcoal.best_for }}</p>
-    </aside>
-  </div>
-</section>
-
 {#
-  Range parsing. All four types in content.json follow the same format:
-    heat_peak:      "650–700°F"    or "600–700°F"
-    burn_duration:  "3–4 hours"    or "1–1.5 hours"
-    consistency:    "95%"          or "60–75%"
-  Split on the en-dash (U+2013); when there's no range, low == high.
-  Scale bounds are fixed so bars are directly comparable across all four types.
+  Heat peak and burn duration are numeric ranges parsed off the en-dash so
+  the gauges read at a consistent scale across all four types.
+  Ash production is qualitative ("Very low" → "High") rendered as a
+  4-step meter using only the existing palette tokens.
 #}
 {% set HEAT_MIN = 500 %}{% set HEAT_MAX = 1100 %}
 {% set BURN_MIN = 0 %}{% set BURN_MAX = 7 %}
-{% set CONS_MIN = 0 %}{% set CONS_MAX = 100 %}
 
 {% set heat_str = charcoal.heat_peak | replace('°F', '') | replace('°C', '') | trim %}
 {% set heat_parts = heat_str.split('–') %}
@@ -75,66 +52,77 @@
 {% set burn_left = ((burn_low - BURN_MIN) * 100 / (BURN_MAX - BURN_MIN)) | round(2) %}
 {% set burn_width = ((burn_high - burn_low) * 100 / (BURN_MAX - BURN_MIN)) | round(2) %}
 
-{% set cons_str = charcoal.consistency | replace('%', '') | trim %}
-{% set cons_parts = cons_str.split('–') %}
-{% set cons_low = cons_parts[0] | trim | int %}
-{% set cons_high = cons_parts[-1] | trim | int %}
-{% set cons_left = ((cons_low - CONS_MIN) * 100 / (CONS_MAX - CONS_MIN)) | round(2) %}
-{% set cons_width = ((cons_high - cons_low) * 100 / (CONS_MAX - CONS_MIN)) | round(2) %}
+{% set ash_levels = {'Very low': 1, 'Low': 2, 'Moderate': 3, 'High': 4} %}
+{% set ash_level = ash_levels.get(charcoal.ash_production, 2) %}
 
-<section class="fade-up fade-up-3 mt-4 mt-md-5">
-  <dl class="big-stats">
-    <div>
-      <dt>Heat peak</dt>
-      <dd>{{ charcoal.heat_peak }}</dd>
-      <div class="stat-gauge stat-gauge--heat" role="img"
-           aria-label="Heat {{ charcoal.heat_peak }} on a scale from {{ HEAT_MIN }}°F to {{ HEAT_MAX }}°F">
-        <div class="stat-gauge__track">
-          <div class="stat-gauge__fill"
-               style="left: {{ heat_left }}%; width: {{ heat_width }}%;"></div>
-        </div>
-        <div class="stat-gauge__scale">
-          <span>{{ HEAT_MIN }}&deg;F</span>
-          <span>{{ HEAT_MAX }}&deg;F</span>
+<section class="detail-main row g-4 g-md-5 fade-up fade-up-2">
+  <div class="col-lg-6">
+    <figure class="charcoal-hero mb-0">
+      <img
+        src="{{ url_for('static', filename=charcoal.image) }}"
+        alt="{{ charcoal.label }} charcoal."
+      />
+    </figure>
+  </div>
+
+  <div class="col-lg-6 detail-main__right">
+    <aside class="best-for-callout">
+      <span class="best-for-callout__label">Best for</span>
+      <p class="best-for-callout__text">{{ charcoal.best_for }}</p>
+    </aside>
+
+    <dl class="stat-list">
+      <div class="stat-list__item">
+        <dt class="stat-list__label">Heat peak</dt>
+        <dd class="stat-list__value">{{ charcoal.heat_peak }}</dd>
+        <div class="stat-gauge stat-gauge--heat" role="img"
+             aria-label="Heat {{ charcoal.heat_peak }} on a scale from {{ HEAT_MIN }}°F to {{ HEAT_MAX }}°F">
+          <div class="stat-gauge__track">
+            <div class="stat-gauge__fill"
+                 style="left: {{ heat_left }}%; width: {{ heat_width }}%;"></div>
+          </div>
+          <div class="stat-gauge__scale">
+            <span>{{ HEAT_MIN }}&deg;F</span>
+            <span>{{ HEAT_MAX }}&deg;F</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div>
-      <dt>Burn duration</dt>
-      <dd>{{ charcoal.burn_duration }}</dd>
-      <div class="stat-gauge stat-gauge--burn" role="img"
-           aria-label="Burn duration {{ charcoal.burn_duration }} on a scale from 0 to {{ BURN_MAX }} hours">
-        <div class="stat-gauge__track">
-          <div class="stat-gauge__fill"
-               style="left: {{ burn_left }}%; width: {{ burn_width }}%;"></div>
-        </div>
-        <div class="stat-gauge__scale">
-          <span>{{ BURN_MIN }}h</span>
-          <span>{{ BURN_MAX }}h</span>
+      <div class="stat-list__item">
+        <dt class="stat-list__label">Burn duration</dt>
+        <dd class="stat-list__value">{{ charcoal.burn_duration }}</dd>
+        <div class="stat-gauge stat-gauge--burn" role="img"
+             aria-label="Burn duration {{ charcoal.burn_duration }} on a scale from 0 to {{ BURN_MAX }} hours">
+          <div class="stat-gauge__track">
+            <div class="stat-gauge__fill"
+                 style="left: {{ burn_left }}%; width: {{ burn_width }}%;"></div>
+          </div>
+          <div class="stat-gauge__scale">
+            <span>{{ BURN_MIN }}h</span>
+            <span>{{ BURN_MAX }}h</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div>
-      <dt>Consistency</dt>
-      <dd>{{ charcoal.consistency }}</dd>
-      <div class="stat-gauge stat-gauge--consistency" role="img"
-           aria-label="Consistency {{ charcoal.consistency }} on a scale from 0 to 100 percent">
-        <div class="stat-gauge__track">
-          <div class="stat-gauge__fill"
-               style="left: {{ cons_left }}%; width: {{ cons_width }}%;"></div>
+      <div class="stat-list__item">
+        <dt class="stat-list__label">Ash production</dt>
+        <dd class="stat-list__value">{{ charcoal.ash_production }}</dd>
+        <div class="stat-meter" role="img"
+             aria-label="Ash production: {{ charcoal.ash_production }} ({{ ash_level }} of 4)">
+          {% for i in range(1, 5) %}
+          <span class="stat-meter__step {% if i <= ash_level %}stat-meter__step--on{% endif %}"></span>
+          {% endfor %}
         </div>
-        <div class="stat-gauge__scale">
-          <span>{{ CONS_MIN }}%</span>
-          <span>{{ CONS_MAX }}%</span>
+        <div class="stat-meter__scale">
+          <span>Very low</span>
+          <span>High</span>
         </div>
       </div>
-    </div>
-  </dl>
+    </dl>
+  </div>
 </section>
 
-<nav class="page-nav fade-up fade-up-4">
+<nav class="page-nav fade-up fade-up-3">
   <div class="d-flex gap-2 flex-wrap">
     {% if prev_slug %}
     <a href="{{ url_for('charcoal_detail', slug=prev_slug) }}" class="btn btn-outline-secondary btn-sm">

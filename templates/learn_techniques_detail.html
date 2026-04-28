@@ -1,6 +1,8 @@
-{% extends "base.html" %} {% block title %}{{ technique.label }} &mdash;
-Grilling Techniques{% endblock %} {% block body_class %}content-wide{% endblock
-%} {% block progress %}
+{% extends "base.html" %}
+{% block title %}{{ technique.label }} &mdash; Grilling Techniques{% endblock %}
+{% block body_class %}content-wide{% endblock %}
+
+{% block progress %}
 <div class="container pt-3">
   <div class="d-flex justify-content-between small text-muted mb-1">
     <span>
@@ -17,104 +19,59 @@ Grilling Techniques{% endblock %} {% block body_class %}content-wide{% endblock
     ></div>
   </div>
 </div>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <header class="page-header fade-up fade-up-1">
-  <a href="{{ overview_url }}" class="back-link"
-    >&larr; Back to all techniques</a
-  >
-  <div class="eyebrow">Grilling Technique</div>
+  <a href="{{ overview_url }}" class="back-link">&larr; Back to all techniques</a>
+  <div class="eyebrow">Grilling Technique &middot; {{ position }} of {{ total }}</div>
   <h1 class="display-title">{{ technique.label }}</h1>
-  <p class="page-header__lead">{{ technique.tagline }}</p>
+  <p class="detail-description detail-description--lead">{{ technique.summary }}</p>
 </header>
 
-<section class="detail-main row g-4 g-md-5 align-items-start fade-up fade-up-2">
-  <div class="col-lg-5">
+<section class="detail-main row g-4 g-md-5 fade-up fade-up-2">
+  <div class="col-lg-6">
     <figure class="charcoal-hero mb-0">
       <img
-        src="{{ url_for('static', filename=technique.image) }}"
-        alt="{{ technique.label }} setup."
+        class="{% if technique.animation %}charcoal-hero__diagram{% endif %}"
+        src="{{ url_for('static', filename=technique.animation if technique.animation else technique.image) }}"
+        alt="{% if technique.animation %}Diagram showing the {{ technique.label }} coal arrangement.{% else %}{{ technique.label }} setup.{% endif %}"
       />
     </figure>
   </div>
 
-  <div class="col-lg-7">
-    <p class="detail-description">{{ technique.description }}</p>
-
+  <div class="col-lg-6 detail-main__right">
     <aside class="best-for-callout">
       <span class="best-for-callout__label">Best for</span>
       <p class="best-for-callout__text">{{ technique.best_for }}</p>
     </aside>
+
+    <dl class="stat-list">
+      <div class="stat-list__item">
+        <dt class="stat-list__label">Heat level</dt>
+        <dd class="stat-list__value">{{ technique.heat_level }}</dd>
+      </div>
+      <div class="stat-list__item">
+        <dt class="stat-list__label">Setup time</dt>
+        <dd class="stat-list__value">{{ technique.setup_time }}</dd>
+      </div>
+      <div class="stat-list__item">
+        <dt class="stat-list__label">Ideal duration</dt>
+        <dd class="stat-list__value">{{ technique.ideal_duration }}</dd>
+      </div>
+    </dl>
   </div>
 </section>
 
-<section class="fade-up fade-up-3 mt-4 mt-md-5">
-  <dl class="charcoal-stats">
-    <div>
-      <dt>Heat Level</dt>
-      <dd>{{ technique.heat_level }}</dd>
-    </div>
-    <div>
-      <dt>Setup Time</dt>
-      <dd>{{ technique.setup_time }}</dd>
-    </div>
-    <div>
-      <dt>Ideal Duration</dt>
-      <dd>{{ technique.ideal_duration }}</dd>
-    </div>
-  </dl>
-</section>
-
-<section class="detail-tradeoffs fade-up fade-up-4 mt-4 mt-md-5">
-  <div class="row g-4 g-md-5">
-    <div class="col-md-6">
-      <h3
-        style="
-          font-family: var(--font-display);
-          font-weight: 600;
-          margin-bottom: var(--space-3);
-        "
-      >
-        Strengths
-      </h3>
-      <ul class="charcoal-list">
-        {% for pro in technique.pros %}
-        <li>{{ pro }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <h3
-        style="
-          font-family: var(--font-display);
-          font-weight: 600;
-          margin-bottom: var(--space-3);
-        "
-      >
-        Tradeoffs
-      </h3>
-      <ul class="charcoal-list charcoal-list--neutral">
-        {% for con in technique.cons %}
-        <li>{{ con }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</section>
-
-<nav class="page-nav fade-up fade-up-5">
+<nav class="page-nav fade-up fade-up-3">
   <div class="d-flex gap-2 flex-wrap">
     {% if prev_slug %}
-    <a
-      href="{{ url_for('technique_detail', slug=prev_slug) }}"
-      class="btn btn-outline-secondary btn-sm"
-    >
+    <a href="{{ url_for('technique_detail', slug=prev_slug) }}" class="btn btn-outline-secondary btn-sm">
       &larr; Previous technique
     </a>
-    {% endif %} {% if next_slug %}
-    <a
-      href="{{ url_for('technique_detail', slug=next_slug) }}"
-      class="btn btn-outline-secondary btn-sm"
-    >
+    {% endif %}
+    {% if next_slug %}
+    <a href="{{ url_for('technique_detail', slug=next_slug) }}" class="btn btn-outline-secondary btn-sm">
       Next technique &rarr;
     </a>
     {% endif %}
