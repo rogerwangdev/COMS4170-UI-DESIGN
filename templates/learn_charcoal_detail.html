@@ -72,7 +72,7 @@
     </aside>
 
     <dl class="stat-list">
-      <div class="stat-list__item">
+      <div class="stat-list__item stat-list__item--heat">
         <dt class="stat-list__label">Heat peak</dt>
         <dd class="stat-list__value">{{ charcoal.heat_peak }}</dd>
         <div class="stat-gauge stat-gauge--heat" role="img"
@@ -88,7 +88,7 @@
         </div>
       </div>
 
-      <div class="stat-list__item">
+      <div class="stat-list__item stat-list__item--duration">
         <dt class="stat-list__label">Burn duration</dt>
         <dd class="stat-list__value">{{ charcoal.burn_duration }}</dd>
         <div class="stat-gauge stat-gauge--burn" role="img"
@@ -104,7 +104,7 @@
         </div>
       </div>
 
-      <div class="stat-list__item">
+      <div class="stat-list__item stat-list__item--ash">
         <dt class="stat-list__label">Ash production</dt>
         <dd class="stat-list__value">{{ charcoal.ash_production }}</dd>
         <div class="stat-meter" role="img"

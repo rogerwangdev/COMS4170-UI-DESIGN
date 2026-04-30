@@ -1452,6 +1452,8 @@ body.content-wide .container {
   padding: 0;
 }
 .stat-list__item {
+  position: relative;
+  overflow: hidden;
   margin: 0;
   padding: var(--space-4) var(--space-5);
   background: var(--color-surface);
@@ -1461,6 +1463,43 @@ body.content-wide .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.stat-list__item > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative icon watermark anchored to the right of each stat card. Drawn
+   in cobalt at low opacity so it reads as warm texture, not a competing
+   visual. Stays inside the 4-color palette — no new hues introduced. */
+.stat-list__item--heat::after,
+.stat-list__item--setup::after,
+.stat-list__item--duration::after,
+.stat-list__item--ash::after {
+  content: "";
+  position: absolute;
+  right: var(--space-4);
+  top: var(--space-3);
+  width: 80px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: contain;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+.stat-list__item--heat::after {
+  background-image: url("../media/icons/icon-flame.svg");
+}
+.stat-list__item--setup::after {
+  background-image: url("../media/icons/icon-stopwatch.svg");
+}
+.stat-list__item--duration::after {
+  background-image: url("../media/icons/icon-hourglass.svg");
+}
+.stat-list__item--ash::after {
+  background-image: url("../media/icons/icon-ash.svg");
 }
 .stat-list__label {
   font-family: var(--font-mono);
@@ -1848,46 +1887,6 @@ body.content-wide .container {
   color: var(--color-dark);
   font-weight: 600;
 }
-.quiz-notice__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  margin-top: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  text-decoration: none;
-}
-.quiz-notice__link:hover {
-  color: var(--color-accent-dark);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.transition-cta {
-  display: flex;
-  gap: var(--space-4);
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: var(--space-5) var(--space-4);
-  background: var(--color-surface);
-  border: 1px solid var(--color-rule);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-.transition-footnote {
-  text-align: center;
-  margin: var(--space-5) 0 0;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-mid);
-}
 
 @media (max-width: 576px) {
   .quiz-notice {
@@ -1898,9 +1897,6 @@ body.content-wide .container {
   .quiz-notice__icon {
     width: 40px;
     height: 40px;
-  }
-  .transition-cta .btn {
-    width: 100%;
   }
 }
 
@@ -1958,38 +1954,6 @@ body.content-wide .container {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center 58%;
-}
-.hero-figure__caption {
-  position: absolute;
-  left: var(--space-4);
-  right: var(--space-4);
-  bottom: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-md);
-}
-.hero-figure__kicker {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 2px;
-}
-.hero-figure__line {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 1.3;
-  color: var(--color-dark);
-  letter-spacing: -0.005em;
 }
 
 /* --- Home: learn-path step cards (extend .charcoal-tile) ------------------ */
