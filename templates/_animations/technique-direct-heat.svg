@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="media-anim media-anim--kettle" role="img" aria-labelledby="dh-title dh-desc" preserveAspectRatio="xMidYMid meet">
+  <title id="dh-title">Direct Heat layout</title>
+  <desc id="dh-desc">Top view of a kettle grill with hot coals spread evenly under the entire grate.</desc>
+  <circle class="media-anim__kettle-outer" cx="100" cy="100" r="88" />
+  <circle class="media-anim__kettle-inner" cx="100" cy="100" r="78" />
+  <g class="media-anim__coal-bed">
+    <circle class="media-anim__coal" cx="70"  cy="64"  r="6" />
+    <circle class="media-anim__coal" cx="100" cy="60"  r="6" />
+    <circle class="media-anim__coal" cx="130" cy="64"  r="6" />
+    <circle class="media-anim__coal" cx="56"  cy="86"  r="6" />
+    <circle class="media-anim__coal" cx="84"  cy="84"  r="6" />
+    <circle class="media-anim__coal" cx="116" cy="84"  r="6" />
+    <circle class="media-anim__coal" cx="144" cy="86"  r="6" />
+    <circle class="media-anim__coal" cx="50"  cy="110" r="6" />
+    <circle class="media-anim__coal" cx="78"  cy="108" r="6" />
+    <circle class="media-anim__coal" cx="108" cy="108" r="6" />
+    <circle class="media-anim__coal" cx="138" cy="108" r="6" />
+    <circle class="media-anim__coal" cx="150" cy="110" r="6" />
+    <circle class="media-anim__coal" cx="62"  cy="132" r="6" />
+    <circle class="media-anim__coal" cx="92"  cy="134" r="6" />
+    <circle class="media-anim__coal" cx="122" cy="134" r="6" />
+    <circle class="media-anim__coal" cx="148" cy="132" r="6" />
+  </g>
+  <g class="media-anim__grate-lines">
+    <line class="media-anim__grate" x1="32" y1="78"  x2="168" y2="78" />
+    <line class="media-anim__grate" x1="22" y1="100" x2="178" y2="100" />
+    <line class="media-anim__grate" x1="32" y1="122" x2="168" y2="122" />
+  </g>
+</svg>

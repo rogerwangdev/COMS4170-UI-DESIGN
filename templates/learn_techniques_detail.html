@@ -31,12 +31,9 @@
 
 <section class="detail-main row g-4 g-md-5 fade-up fade-up-2">
   <div class="col-lg-6">
-    <figure class="charcoal-hero mb-0">
-      <img
-        class="{% if technique.animation %}charcoal-hero__diagram{% endif %}"
-        src="{{ url_for('static', filename=technique.animation if technique.animation else technique.image) }}"
-        alt="{% if technique.animation %}Diagram showing the {{ technique.label }} coal arrangement.{% else %}{{ technique.label }} setup.{% endif %}"
-      />
+    <figure class="charcoal-hero mb-0" tabindex="0"
+            aria-label="{{ technique.label }} layout — hover to animate the coals">
+      {% include "_animations/technique-" + technique.slug + ".svg" %}
     </figure>
   </div>
 

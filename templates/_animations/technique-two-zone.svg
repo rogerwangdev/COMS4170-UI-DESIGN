@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="media-anim media-anim--kettle" role="img" aria-labelledby="tz-title tz-desc" preserveAspectRatio="xMidYMid meet">
+  <title id="tz-title">Two-Zone layout</title>
+  <desc id="tz-desc">Top view of a kettle grill with hot coals piled on the left half and the right half empty as a cool zone.</desc>
+  <circle class="media-anim__kettle-outer" cx="100" cy="100" r="88" />
+  <circle class="media-anim__kettle-inner" cx="100" cy="100" r="78" />
+  <line class="media-anim__divider" x1="100" y1="22" x2="100" y2="178" />
+  <g class="media-anim__coal-bed">
+    <circle class="media-anim__coal" cx="50"  cy="68"  r="6" />
+    <circle class="media-anim__coal" cx="74"  cy="62"  r="6" />
+    <circle class="media-anim__coal" cx="40"  cy="92"  r="6" />
+    <circle class="media-anim__coal" cx="62"  cy="88"  r="6" />
+    <circle class="media-anim__coal" cx="84"  cy="86"  r="6" />
+    <circle class="media-anim__coal" cx="36"  cy="116" r="6" />
+    <circle class="media-anim__coal" cx="58"  cy="112" r="6" />
+    <circle class="media-anim__coal" cx="80"  cy="110" r="6" />
+    <circle class="media-anim__coal" cx="46"  cy="138" r="6" />
+    <circle class="media-anim__coal" cx="72"  cy="136" r="6" />
+  </g>
+  <g class="media-anim__grate-lines">
+    <line class="media-anim__grate" x1="32" y1="78"  x2="168" y2="78" />
+    <line class="media-anim__grate" x1="22" y1="100" x2="178" y2="100" />
+    <line class="media-anim__grate" x1="32" y1="122" x2="168" y2="122" />
+  </g>
+  <text class="media-anim__cool-label" x="140" y="105" text-anchor="middle">Cool</text>
+</svg>
