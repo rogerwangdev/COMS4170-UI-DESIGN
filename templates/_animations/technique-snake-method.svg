@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="media-anim media-anim--kettle media-anim--snake" role="img" aria-labelledby="sn-title sn-desc" preserveAspectRatio="xMidYMid meet">
+  <title id="sn-title">Snake Method layout</title>
+  <desc id="sn-desc">Top view of a kettle grill with unlit coals arranged in a C-shape along the inside wall and a glow travelling slowly from one end to the other.</desc>
+  <circle class="media-anim__kettle-outer" cx="100" cy="100" r="88" />
+  <circle class="media-anim__kettle-inner" cx="100" cy="100" r="78" />
+  <g class="media-anim__snake-unlit">
+    <circle class="media-anim__coal-unlit" cx="100" cy="35"  r="6" />
+    <circle class="media-anim__coal-unlit" cx="78"  cy="40"  r="6" />
+    <circle class="media-anim__coal-unlit" cx="58"  cy="54"  r="6" />
+    <circle class="media-anim__coal-unlit" cx="42"  cy="74"  r="6" />
+    <circle class="media-anim__coal-unlit" cx="36"  cy="100" r="6" />
+    <circle class="media-anim__coal-unlit" cx="42"  cy="126" r="6" />
+    <circle class="media-anim__coal-unlit" cx="58"  cy="146" r="6" />
+    <circle class="media-anim__coal-unlit" cx="78"  cy="160" r="6" />
+    <circle class="media-anim__coal-unlit" cx="100" cy="165" r="6" />
+  </g>
+  <g class="media-anim__snake-active">
+    <circle class="media-anim__coal-active" cx="100" cy="35"  r="6" />
+    <circle class="media-anim__coal-active" cx="78"  cy="40"  r="6" />
+    <circle class="media-anim__coal-active" cx="58"  cy="54"  r="6" />
+    <circle class="media-anim__coal-active" cx="42"  cy="74"  r="6" />
+    <circle class="media-anim__coal-active" cx="36"  cy="100" r="6" />
+    <circle class="media-anim__coal-active" cx="42"  cy="126" r="6" />
+    <circle class="media-anim__coal-active" cx="58"  cy="146" r="6" />
+    <circle class="media-anim__coal-active" cx="78"  cy="160" r="6" />
+    <circle class="media-anim__coal-active" cx="100" cy="165" r="6" />
+  </g>
+  <g class="media-anim__grate-lines">
+    <line class="media-anim__grate" x1="32" y1="78"  x2="168" y2="78" />
+    <line class="media-anim__grate" x1="22" y1="100" x2="178" y2="100" />
+    <line class="media-anim__grate" x1="32" y1="122" x2="168" y2="122" />
+  </g>
+</svg>

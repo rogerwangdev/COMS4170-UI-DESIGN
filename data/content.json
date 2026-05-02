@@ -55,9 +55,9 @@
           "image": "media/charcoal-briquettes.jpg",
           "heat_peak": "650–700°F",
           "burn_duration": "3–4 hours",
-          "consistency": "95%",
+          "ash_production": "Moderate",
           "tagline": "The reliable default.",
-          "summary": "Uniform pillow-shaped lumps. Consistent, affordable, and easy to light. A great default.",
+          "summary": "Uniform pillow-shaped lumps that burn predictably and are easy to light.",
           "description": "Compressed sawdust and wood binders, pressed into uniform pillow shapes. Predictable, affordable, and easy to learn on.",
           "best_for": "Weeknight grilling, burgers, steaks, and anyone who wants predictable, forgiving heat.",
           "pros": [
@@ -76,9 +76,9 @@
           "image": "media/charcoal-lump.jpg",
           "heat_peak": "800–1000°F",
           "burn_duration": "1–1.5 hours",
-          "consistency": "60–75%",
+          "ash_production": "Low",
           "tagline": "Hot and fast.",
-          "summary": "Chunks of natural hardwood. Lights fast and burns very hot, but it burns out quickly.",
+          "summary": "Chunks of natural hardwood that light fast and burn very hot but run out quickly.",
           "description": "Chunks of natural hardwood that light quickly and burn much hotter than briquettes. Irregular pieces make temperature control harder.",
           "best_for": "Searing steaks, smash burgers, and any cook where you want maximum heat in a short window.",
           "pros": [
@@ -97,9 +97,9 @@
           "image": "media/charcoal-competition.jpg",
           "heat_peak": "700–800°F",
           "burn_duration": "4–6 hours",
-          "consistency": "95–98%",
+          "ash_production": "Very low",
           "tagline": "Low-and-slow, all day.",
-          "summary": "Premium briquettes used by pitmasters. Long, steady burn at a high, consistent heat.",
+          "summary": "Premium briquettes that hold a long, steady, high heat for hours of low-and-slow cooking.",
           "description": "Competition briquettes are the premium tier: denser, cleaner-burning, and engineered for the marathon cooks you see at BBQ competitions. They hold a high, steady temperature for hours with almost no babysitting.",
           "best_for": "Ribs, brisket, pork shoulder — anything you want to cook low and slow for four hours or more.",
           "pros": [
@@ -118,9 +118,9 @@
           "image": "media/charcoal-bamboo.jpg",
           "heat_peak": "600–700°F",
           "burn_duration": "2–3 hours",
-          "consistency": "80–90%",
+          "ash_production": "Low",
           "tagline": "Sustainable with a signature aroma.",
-          "summary": "Eco-friendly and sustainable. Produces a distinct aroma and a moderately long burn.",
+          "summary": "Eco-friendly bamboo charcoal with a distinct aroma and a moderately long burn.",
           "description": "Bamboo charcoal is made from fast-growing bamboo, a more sustainable source than hardwood. It burns a little cooler than briquettes but produces a distinctive aroma that pairs beautifully with seafood and vegetables.",
           "best_for": "Seafood, grilled vegetables, and cooks where you want a cleaner, subtly sweet smoke flavor.",
           "pros": [
@@ -163,7 +163,7 @@
           "setup_time": "3 minutes",
           "ideal_duration": "45 min – 2 hours",
           "tagline": "Sear, then finish.",
-          "summary": "Coals on one side, empty grate on the other. The most forgiving all-rounder.",
+          "summary": "Coals on one side and an empty grate on the other for the most forgiving all-rounder.",
           "description": "Coals on one side, empty grate on the other. You get a hot zone for searing and a cool zone for gentle finishing.",
           "best_for": "Chicken thighs, bone-in cuts, thick steaks, burgers, vegetables — anything where you want a good sear without burning it.",
           "pros": [
@@ -184,7 +184,7 @@
           "setup_time": "10 minutes",
           "ideal_duration": "4–6 hours",
           "tagline": "Set it and forget it.",
-          "summary": "Coals in a line or C-shape, lit at one end. Burns slowly for hours.",
+          "summary": "Coals in a C-shape lit at one end that burns slowly for hours of steady, low heat.",
           "description": "Arrange unlit coals in a C-shape, light one end, and close the lid. The burn creeps slowly around the snake for hours of low, steady heat.",
           "best_for": "Ribs, brisket, pork shoulder, whole chicken — any low-and-slow cook that runs 4 hours or longer.",
           "pros": [
@@ -206,7 +206,7 @@
           "setup_time": "2 minutes",
           "ideal_duration": "10–30 minutes",
           "tagline": "Fast, hot, and aggressive.",
-          "summary": "Coals spread evenly under the entire grate. Go big on heat everywhere.",
+          "summary": "Coals spread evenly under the entire grate for maximum heat everywhere.",
           "description": "Spread coals evenly under the entire grate for maximum heat everywhere. Perfect for fast cooks that benefit from a hard char.",
           "best_for": "Burgers, hot dogs, sausages, shrimp, grilled vegetables — fast cooks where speed and color matter more than gentle heat.",
           "pros": [
@@ -228,7 +228,7 @@
           "setup_time": "5 minutes",
           "ideal_duration": "2–4 hours",
           "tagline": "Maximum flavor on charcoal.",
-          "summary": "Lit charcoal base plus hardwood chunks on top. Brings the smoke.",
+          "summary": "Lit charcoal base topped with hardwood chunks to add deep smoke flavor.",
           "description": "Add hardwood chunks (oak, hickory, cherry) on top of lit coals to release smoke. Quick smoke flavor without the 12-hour cook time.",
           "best_for": "Smoked chicken wings, pork shoulder, brisket — any cut where flavor matters and you want the speed of charcoal with the taste of smoke.",
           "pros": [
@@ -247,50 +247,6 @@
     },
     {
       "id": 4,
-      "title": "Charcoal Layouts in Practice",
-      "instructions": "Pick the layout for your dish.",
-      "media": null,
-      "topic": "grilling-techniques",
-      "difficulty": "intermediate",
-      "estimated_time": "2 min",
-      "learning_objectives": [
-        "Choose the right layout for your food",
-        "Match heat and time to your cook"
-      ],
-      "interaction": {
-        "type": "choice",
-        "key": "favorite_layout",
-        "prompt": "Which layout are you most curious to try?",
-        "options": [
-          {
-            "label": "Two-Zone",
-            "image": "media/twoZone.jpg",
-            "best_for": "Chicken thighs, bone-in cuts, thick steaks",
-            "summary": "Sear hot, finish cool. Control heat by moving food."
-          },
-          {
-            "label": "Snake Method",
-            "image": "media/snakeMethod.jpg",
-            "best_for": "Ribs, brisket, pork shoulder",
-            "summary": "Arrange coals in a line, light one end, wait."
-          },
-          {
-            "label": "Direct Heat",
-            "image": "media/directHeat.jpg",
-            "best_for": "Burgers, hot dogs, quick veggies",
-            "summary": "Spread coals under entire grate for maximum heat."
-          },
-          {
-            "label": "Charcoal + Wood Mix",
-            "image": "media/charcoalWoordMix.jpg",
-            "best_for": "Smoked chicken wings, pork shoulder",
-            "summary": "Top coals with hardwood chunks for quick smoke."
-          }
-        ]
-      }
-    },
-    {
-      "id": 5,
       "title": "Safety & Disposal",
       "instructions": "Three steps: cool, extinguish, dispose.",
       "media": "media/lesson5.jpg",
@@ -423,7 +379,7 @@
       "question": "In the U.S., which waste category should used charcoal be disposed in?",
       "topic": "safety",
       "difficulty": "beginner",
-      "related_lesson_id": 5,
+      "related_lesson_id": 4,
       "hero_image": "media/disposal-metal-bucket.jpg",
       "hero_caption": "Used charcoal — once fully cooled — heads straight to the trash, not recycling or compost.",
       "options": [

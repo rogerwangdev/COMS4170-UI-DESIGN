@@ -29,9 +29,8 @@
       <div class="intro-hero__eyebrow kicker">Learning complete</div>
       <h1 class="intro-hero__title">Ready for the quiz?</h1>
       <p class="intro-hero__lead">
-        You've worked through all {{ lesson_count }} lessons &mdash; charcoal, fire layouts,
-        cooking, and cleanup. Next up: a short {{ quiz_count }}-question check
-        to lock it in.
+        You've covered all {{ lesson_count }} lessons. Next up: a short
+        {{ quiz_count }}-question check to lock it in.
       </p>
     </div>
     <dl class="editorial-band__stats">
@@ -65,28 +64,18 @@
     <div class="kicker">Before you begin</div>
     <h2 class="quiz-notice__title">Make sure you've covered everything</h2>
     <p class="quiz-notice__text">
-      The quiz draws from material across all {{ lesson_count }} lessons &mdash;
-      especially <strong>Types of Charcoal</strong> and the
-      <strong>fire layout methods</strong>. If any topic feels unclear, take a
-      minute to revisit the lesson before you start. There's no rush.
+      The quiz draws from all {{ lesson_count }} lessons &mdash; especially
+      <strong>Types of Charcoal</strong> and <strong>fire layout methods</strong>.
     </p>
-    <a href="{{ url_for('learn', lesson_id=1) }}" class="quiz-notice__link">
-      Revisit lessons &rarr;
-    </a>
   </div>
 </section>
 
-<section class="transition-cta fade-up fade-up-3 mt-4 mt-md-5">
-  <a href="{{ url_for('quiz', q_id=1) }}" class="btn btn-primary btn-lg">
+<nav class="page-nav fade-up fade-up-3">
+  <a href="{{ url_for('learn', lesson_id=1) }}" class="btn btn-outline-secondary">
+    &larr; Review Lessons
+  </a>
+  <a href="{{ url_for('quiz', q_id=1) }}" class="btn btn-primary">
     Start Quiz &rarr;
   </a>
-  <a href="{{ url_for('learn', lesson_id=1) }}"
-     class="btn btn-outline-secondary btn-lg">
-    Review Lessons
-  </a>
-</section>
-
-<p class="transition-footnote fade-up fade-up-4">
-  You can come back to any lesson afterwards
-</p>
+</nav>
 {% endblock %}
