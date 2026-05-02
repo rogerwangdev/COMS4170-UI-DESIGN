@@ -39,7 +39,7 @@
       "estimated_time": "3 min",
       "learning_objectives": [
         "Identify four common types of charcoal used in grilling",
-        "Compare charcoal types by heat output, burn duration, and consistency",
+        "Compare charcoal types by heat output, burn duration, and ash production",
         "Choose the right charcoal type based on cooking needs"
       ],
       "sections": [
@@ -327,7 +327,7 @@
     },
     {
       "id": 3,
-      "question": "Which charcoal is the most consistent?",
+      "question": "Which charcoal produces the least ash?",
       "topic": "charcoal-types",
       "difficulty": "beginner",
       "related_lesson_id": 2,
@@ -340,12 +340,12 @@
       ],
       "answer": 2,
       "explanations": [
-        "Briquettes are 95% consistent, very reliable.",
-        "Lump is only 60–75% consistent because it's chunks of natural wood.",
-        "Correct! Competition Briquettes are 95–98% consistent, the most reliable for precise temperature control.",
-        "Bamboo is 80–90% consistent."
+        "Briquettes produce moderate ash — more than the natural-wood charcoals.",
+        "Lump produces low ash since it's just pure hardwood.",
+        "Correct! Competition Briquettes burn the cleanest, with very low ash even over a long cook.",
+        "Bamboo produces low ash, but Competition Briquettes are even cleaner."
       ],
-      "key_takeaway": "Competition Briquettes offer the best predictability."
+      "key_takeaway": "Competition Briquettes burn the cleanest, leaving very little ash to deal with."
     },
     {
       "id": 4,

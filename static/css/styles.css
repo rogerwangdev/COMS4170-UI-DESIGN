@@ -1839,14 +1839,6 @@ body.content-wide .container {
     var(--color-accent-dark) 100%
   );
 }
-/* Consistency: dark navy — reads as trust / reliability. */
-.stat-gauge--consistency .stat-gauge__fill {
-  background: linear-gradient(
-    90deg,
-    var(--color-dark-soft) 0%,
-    var(--color-dark) 100%
-  );
-}
 
 @media (max-width: 767.98px) {
   .big-stats dd {

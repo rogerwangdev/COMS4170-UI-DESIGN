@@ -52,7 +52,7 @@ lesson.title }}{% endblock %} {% block body_class %}content-wide{% endblock %}
         <div class="fw-bold mb-1">{{ opt.label }}</div>
         <div class="small text-muted">
           {% if opt.heat_peak %} Heat peak: {{ opt.heat_peak }} &middot; Burns:
-          {{ opt.burn_duration }} &middot; Consistency: {{ opt.consistency }}<br />
+          {{ opt.burn_duration }} &middot; Ash: {{ opt.ash_production }}<br />
           {% endif %} {% if opt.best_for %}
           <em>Best for:</em> {{ opt.best_for }}<br />
           {% endif %} {{ opt.summary }}

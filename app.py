@@ -270,7 +270,7 @@ def _short_topic(q):
     overrides = {
         1: "Longest-lasting",
         2: "Hottest burn",
-        3: "Most consistent",
+        3: "Least ash",
         4: "Ribs layout",
         5: "Disposal bin",
     }
